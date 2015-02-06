@@ -1,0 +1,127 @@
+model CACC
+
+class VehiculeController
+  attributes
+    cruiseSpeed : Integer
+    followDistance : Integer
+    isLead : Boolean
+  operations
+    isFunctioning()
+    increaseSpeed()
+    decreaseSpeed()
+    systemOn()
+    systemOff()
+    sendJoinPlatoon()
+    splitPlatoon()
+    exitPlatoon()
+    resume()
+    cancel()
+    increaseDistance()
+    decreaseDistance()
+    response()
+    receiveJoinRequest()
+    setSpeed()
+    memoryCheck()
+end
+
+class Radio
+  attributes
+    nom: String
+  operations
+    isFunctioning()
+    requestID()
+    broadcastGPS()
+    sendJoinPlatoon()
+    sendRequestResponse()
+    receiveInfrastructureSignal()
+    noTraillingVehicule()
+    reestablishConnection()
+    receiveGPS()
+end
+
+class GPS
+  operations
+    isFunctioning()
+    getSpeed()
+    getPosition()
+    getDirection()
+end
+
+class UserControls
+  attributes
+  operations
+    isFunctioning()
+    btnOn()
+    btnOff()
+    btnIncreaseSpeed()
+    btnDecreaseSpeed()
+    btnIncreaseDistance()
+    btnDecreaseDistance()
+    btnEngage()
+    setDistanceIndicator()
+    setInPlatoonIndicator()
+    setLeadCarIndicator()
+    setSystemActiveIndicator()
+    setSystemInactiveIndicator()
+    btnResume()
+    btnCancel()
+    btnSetSpeed()
+end
+
+class ElectronicThrottleControl
+  attributes
+    power: Integer
+  operations
+    isFunctioning()
+    setPower(power : Integer)
+    getPower()
+    applyPower(power: Integer)
+end
+
+class BrakingController
+  attributes
+    force : Integer
+  operations
+    isFunctioning()
+    getForce()
+    setForce(force : Integer)
+    applyAll(force : Integer)
+end
+
+class Radar
+  operations
+    isFunctioning()
+    detectTargetVehicule()
+    identifyTargetVehicule()
+    trackTargetVehicule()
+    getTargetVehiculeData()
+    noTargetVehicule()
+end
+
+class Camera
+  attributes
+    nom: String
+  operations
+    isFunctioning()
+    identifyTargetVehicule()
+    estimateSpeed()
+    estimateDistance()
+end
+
+class RadarTransponder
+  operations
+    isFunctioning()
+    sendVehiculeID()
+end
+
+class PlatoonVehicule
+  attributes
+    ID : Integer
+    position : Integer
+end
+
+class TargetVehicule
+end
+
+class TrailingVehicule
+end
