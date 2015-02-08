@@ -1,117 +1,29 @@
-model CACC
-
-class VehiculeController
-  attributes
-    cruiseSpeed : Integer
-    followDistance : Integer
-    isLead : Boolean
-  operations
-    isFunctioning()
-    increaseSpeed()
-    decreaseSpeed()
-    systemOn()
-    systemOff()
-    sendJoinPlatoon()
-    splitPlatoon()
-    exitPlatoon()
-    resume()
-    cancel()
-    increaseDistance()
-    decreaseDistance()
-    response()
-    receiveJoinRequest()
-    setSpeed()
-    memoryCheck()
-end
+model GestionConvoiCriterion
 
 class Radio
-  attributes
-    nom: String
-  operations
-    isFunctioning()
-    requestID()
-    broadcastGPS()
-    sendJoinPlatoon()
-    sendRequestResponse()
-    receiveInfrastructureSignal()
-    noTraillingVehicule()
-    reestablishConnection()
-    receiveGPS()
 end
 
-class GPS
-  operations
-    isFunctioning()
-    getSpeed()
-    getPosition()
-    getDirection()
-end
-
-class UserControls
-  attributes
-  operations
-    isFunctioning()
-    btnOn()
-    btnOff()
-    btnIncreaseSpeed()
-    btnDecreaseSpeed()
-    btnIncreaseDistance()
-    btnDecreaseDistance()
-    btnEngage()
-    setDistanceIndicator()
-    setInPlatoonIndicator()
-    setLeadCarIndicator()
-    setSystemActiveIndicator()
-    setSystemInactiveIndicator()
-    btnResume()
-    btnCancel()
-    btnSetSpeed()
-end
-
-class ElectronicThrottleControl
-  attributes
-    power: Integer
-  operations
-    isFunctioning()
-    setPower(power : Integer)
-    getPower()
-    applyPower(power: Integer)
-end
-
-class BrakingController
-  attributes
-    force : Integer
-  operations
-    isFunctioning()
-    getForce()
-    setForce(force : Integer)
-    applyAll(force : Integer)
+class VehiculeController
 end
 
 class Radar
-  operations
-    isFunctioning()
-    detectTargetVehicule()
-    identifyTargetVehicule()
-    trackTargetVehicule()
-    getTargetVehiculeData()
-    noTargetVehicule()
 end
 
 class Camera
-  attributes
-    nom: String
-  operations
-    isFunctioning()
-    identifyTargetVehicule()
-    estimateSpeed()
-    estimateDistance()
 end
 
-class RadarTransponder
-  operations
-    isFunctioning()
-    sendVehiculeID()
+class System
+end
+
+class GPS
+end
+
+class Conducteur
+ attributes
+   name: String;
+end
+
+class Platoon
 end
 
 class PlatoonVehicule
@@ -120,8 +32,72 @@ class PlatoonVehicule
     position : Integer
 end
 
-class TargetVehicule
+aggregation PlatoonBuildup between
+  Platoon[1];
+  PlatoonVehicule[1..*];
 end
 
-class TrailingVehicule
+association Gestion between
+ System[1]
+ Platoon[*]
+end
+
+association Enregistrement between
+ System[1]
+ PlatoonVehicule[*]
+end
+
+association Inscription between
+ System[1]
+ Conducteur[*]
+end
+
+association Conducteur between
+  PlatoonVehicule[1]
+  Conducteur[0..1]
+end
+
+association VehiculeOrder between
+  PlatoonVehicule[0..1] role cible
+  PlatoonVehicule[0..1] role traqueur
+end
+
+association sendRadioData between
+  VehiculeController[1]
+  Radio[1]
+end
+
+association TransmissionRadio between
+  Radio[1] role emetteur
+  PlatoonVehicule[1..*] role receveurs
+end
+
+association ReceptionRadar between
+ VehiculeController[1]
+ Radar[1]
+end
+
+association TraquageRadar between
+ PlatoonVehicule[0..*] role cibleRadar
+ Radar[1] role rTraqueur
+end
+
+association ReceptionCamera between
+ VehiculeController[1]
+ Camera[1]
+end
+
+association TraquageCamera between
+ PlatoonVehicule[0..*] role cibleCamera
+ Camera[1] role cTraqueur
+end
+
+association ControllePar between
+  PlatoonVehicule[1]
+  VehiculeController[1]
+end
+
+association ReceptionGPS between
+  VehiculeController[1]
+  GPS[1]
 end
