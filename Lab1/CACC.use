@@ -24,47 +24,67 @@ class Conducteur
 end
 
 class Platoon
+  operations
+   fusion( peloton1: Platoon)
+    pre differentPelotons:self <> peloton1
+    post peloton1retire:self.gestionnaire.pelotons = self.gestionnaire.pelotons@pre->excluding(peloton1)
+    post voituresPeloton1:self.voitures = self.voitures@pre->union(peloton1.voitures)
+	post positionMiseajour:peloton1.voitures->forAll(v|self.voitures->select(c|c.position=v.position + self.voitures@pre->size()).ID->includes(v.ID))
+	post leader2TraqueFinpeloton1: let last1:PlatoonVehicule = self.voitures@pre->any(v|v.position=self.voitures@pre->size()) in
+		peloton1.voitures->select(v|v.position=1).vc.camera.cibleCamera->includes(last1) and
+		peloton1.voitures->select(v|v.position=1).vc.radar.cibleRadar->includes(last1)
+	post radioPeloton2Misajour: self.voitures->forAll(v| v.vc.radio.receveurs = self.voitures->excluding(v))
+	
+   defusion(newLeader:PlatoonVehicule) : Platoon
+    pre possedeConducteurs: newLeader.conducteur->isDefined()
+	pre pasDejaLeader:  newLeader.position <> 1
+	post positionAjour:result.voitures->forAll(v|self.voitures@pre->select(c|c.position=v.position + self.voitures->size()).ID->includes(v.ID))
+	post newLeaderNeTraquePlusCamera:newLeader.vc.camera.cibleCamera->isEmpty()
+	post newLeaderNeTraquePlusRadar:newLeader.vc.radar.cibleRadar->isEmpty()
+	post radioPeloton1Misajour: self.voitures->forAll(v| v.vc.radio.receveurs = self.voitures->excluding(v))
+	post radioPeloton2Misajour: result.voitures->forAll(v| v.vc.radio.receveurs = result.voitures->excluding(v))
 end
 
 class PlatoonVehicule
   attributes
     ID : Integer
     position : Integer
+  operations
+    quitterPlatoon()
+	 pre leaderQuitterSiConducteurPosition2:self.position=1 implies self.peloton.voitures->select(position=2).conducteur->notEmpty()
+	 post plusDansPeloton: self.peloton.voitures = self.peloton.voitures@pre->excluding(self)
+	 post aucunTraquageCamera: self.vc.camera.cibleCamera->isEmpty()
+	 post aucunTraquageRadar: self.vc.camera.cibleCamera->isEmpty()
 end
 
 aggregation PlatoonBuildup between
-  Platoon[1];
-  PlatoonVehicule[1..*];
+  Platoon[1] role peloton
+  PlatoonVehicule[1..*] role voitures
 end
 
 association Gestion between
- System[1]
- Platoon[*]
+ System[1] role gestionnaire
+ Platoon[*] role pelotons
 end
 
 association Enregistrement between
  System[1]
- PlatoonVehicule[*]
+ PlatoonVehicule[*] role enregistres
 end
 
 association Inscription between
  System[1]
- Conducteur[*]
+ Conducteur[*] role inscrits
 end
 
 association Conducteur between
-  PlatoonVehicule[1]
-  Conducteur[0..1]
-end
-
-association VehiculeOrder between
-  PlatoonVehicule[0..1] role cible
-  PlatoonVehicule[0..1] role traqueur
+  PlatoonVehicule[1] role voiture
+  Conducteur[0..1] role conducteur
 end
 
 association sendRadioData between
   VehiculeController[1]
-  Radio[1]
+  Radio[1] role radio
 end
 
 association TransmissionRadio between
@@ -74,7 +94,7 @@ end
 
 association ReceptionRadar between
  VehiculeController[1]
- Radar[1]
+ Radar[1] role radar
 end
 
 association TraquageRadar between
@@ -84,17 +104,17 @@ end
 
 association ReceptionCamera between
  VehiculeController[1]
- Camera[1]
+ Camera[1] role camera
 end
 
 association TraquageCamera between
- PlatoonVehicule[0..*] role cibleCamera
+ PlatoonVehicule[0..1] role cibleCamera
  Camera[1] role cTraqueur
 end
 
 association ControllePar between
   PlatoonVehicule[1]
-  VehiculeController[1]
+  VehiculeController[1] role vc
 end
 
 association ReceptionGPS between
