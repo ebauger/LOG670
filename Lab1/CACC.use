@@ -109,6 +109,11 @@ class PlatoonVehicule
      post conducteurSetter:self.conducteur = conducteur
 end
 
+aggregation PlatoonBuildup between
+  Platoon[1] role peloton
+  PlatoonVehicule[1..*] role voitures
+end
+
 association Gestion between
  System[1] role gestionnaire
  Platoon[*] role pelotons
