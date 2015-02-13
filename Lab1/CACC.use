@@ -15,8 +15,8 @@ end
 class System
  operations
   createPeloton(leader:PlatoonVehicule,voitures:Set(PlatoonVehicule)) : Platoon
-      pre voituresEnregistrees:self.enregistres->includesAll(voitures->including(leader))
-      pre conducteurInscrit:self.inscrits->includesAll(voitures->including(leader).conducteur)
+      pre voituresEnregistrees:self.enregistres.ID->includes(leader.ID)
+      pre conducteurLeaderInscrit:self.inscrits.ID->includes(leader.conducteur.ID)
       pre leaderAConducteur:leader.conducteur->notEmpty()
       post tousVoituresDansPeloton:result.voitures->includesAll(voitures->including(leader)) and result.voitures->size()=voitures->size()+1
       post positionValide: result.voitures->forAll(v|result.voitures->sortedBy(position)->at(v.position)=v) and result.voitures->any(position=1) = leader
@@ -99,7 +99,7 @@ class PlatoonVehicule
     ID : Integer
     position : Integer
   operations
-    quitterPlatoon(becomeNewPeloton:Boolean)
+    quitterPlatoon()
      pre leaderQuitterSiConducteurPosition2:self.position=1 implies self.peloton.voitures->select(position=2).conducteur->notEmpty()
      post plusDansPeloton: self.peloton.voitures = self.peloton.voitures@pre->excluding(self) and self.peloton <> self.peloton@pre
      post aucunTraquageCamera: self.vc.camera.cibleCamera->isEmpty()
@@ -196,9 +196,9 @@ context Platoon
 context Platoon
     inv comRadio : self.voitures->forAll(v| v.vc.radio.receveurs = self.voitures->excluding(v))
 
--- Tous les véhicules d’un peloton doivent être inscrits dans le système.
+-- Le leader d’un peloton doit être inscrits dans le système.
 context System
-    inv voituresEnr : self.enregistres->includesAll(self.pelotons.voitures)
+    inv voituresEnr : self.enregistres->includesAll(self.pelotons.voitures->select(position=1))
 
 --Le conducteurs du véhicule leader d’un peloton doit être inscrit dans le système.
 context System
