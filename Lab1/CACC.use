@@ -110,7 +110,6 @@ class PlatoonVehicule
      post cameraPelotonMisAJour: self@pre.peloton.voitures->any(position=self.position@pre).vc.camera.cibleCamera->includes(self@pre.peloton.voitures->any(position=self.position@pre-1))
      post radarPelotonMisAJour: self@pre.peloton.voitures->any(position=self.position@pre).vc.radar.cibleRadar->includes(self@pre.peloton.voitures->any(position=self.position@pre-1))
      post radioPelotonMisajour: self@pre.peloton.voitures->forAll(v| v.vc.radio.receveurs = self@pre.peloton.voitures->excluding(v))
-     post newPeloton:if becomeNewPeloton then self.peloton->isDefined() else self.peloton.isUndefined() endif
 
     setConducteur(conducteur:Conducteur)
      pre pasDeConducteur: self.conducteur.isUndefined()
