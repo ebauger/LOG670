@@ -47,6 +47,11 @@ class System
       pre conducteurPasDansSysteme:self.inscrits->excludes(conducteur)
       pre conducteurNom: conducteur.name.size()>0
       post conducteurDansSystem: self.inscrits = self.inscrits@pre->including(conducteur)
+	  
+  listeActivePelotons() : Set(Platoon) = self.pelotons->select(p | p.voitures->size() > 1)
+  listeVehiculesInscritsDansPelotons() : Bag(PlatoonVehicule) = self.pelotons.voitures->select(v | self.enregistres->includes(v))
+  listeConducteursInscritsDansPelotons() : Bag(Conducteur) = self.pelotons.voitures.conducteur->select( c | self.inscrits->includes(c))
+  listePelotonsSplittables() : Set(Platoon) = self.pelotons->select(p | p.voitures.conducteur->size() > 1)		  
 end
 
 class GPS
@@ -54,7 +59,8 @@ end
 
 class Conducteur
  attributes
-   name: String;
+   ID : Integer
+   name : String
 end
 
 class Platoon
@@ -84,6 +90,8 @@ class Platoon
         post newVehiculeCamera: newVehicule.vc.camera.cibleCamera=self.voitures->any(position=newVehicule.position-1)
         post newVehiculeRadar: newVehicule.vc.radar.cibleRadar=self.voitures->any(position=newVehicule.position-1)
         post radioMisAJour: self.voitures->forAll(v| v.vc.radio.receveurs = self.voitures->excluding(v))
+		
+   obtenirLeader() : PlatoonVehicule = self.voitures->any(position = 1)				
 end
 
 class PlatoonVehicule
@@ -107,6 +115,9 @@ class PlatoonVehicule
     setConducteur(conducteur:Conducteur)
      pre pasDeConducteur: self.conducteur.isUndefined()
      post conducteurSetter:self.conducteur = conducteur
+	 
+	listeVehiculesDevant(v : PlatoonVehicule) : Set(PlatoonVehicule) = self.peloton.voitures->select(v | v.position < self.position)
+	listeVehiculesDerriere(v : PlatoonVehicule) : Set(PlatoonVehicule) = self.peloton.voitures->select(v | v.position > self.position)	 
 end
 
 aggregation PlatoonBuildup between
@@ -212,3 +223,7 @@ context Platoon
 -- Chaque vehicule a un id différent
 context System
     inv voitureIdDiff : self.enregistres->forAll( v | self.enregistres->excluding(v).ID->excludes(v.ID))
+	
+-- Chaque conducteur a un id différent
+context System
+    inv conducteurIdDiff : self.inscrits->forAll( c | self.inscrits->excluding(c).ID->excludes(c.ID))
