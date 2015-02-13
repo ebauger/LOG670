@@ -13,6 +13,42 @@ class Camera
 end
 
 class System
+ operations
+  createPeloton(leader:PlatoonVehicule,voitures:Set(PlatoonVehicule)) : Platoon
+  pre voituresEnregistrees:self.enregistres->includesAll(voitures->including(leader))
+  pre conducteurInscrit:self.inscrits->includesAll(voitures->including(leader).conducteur)
+  pre leaderAConducteur:leader.conducteur->notEmpty()
+  post tousVoituresDansPeloton:result.voitures->includesAll(voitures->including(leader)) and result.voitures->size()=voitures->size()+1
+  post positionValide: result.voitures->forAll(v|result.voitures->sortedBy(position)->at(v.position)=v) and result.voitures->any(position=1) = leader
+  post traquageCamera:result.voitures->select(position>1)->forAll(v|v.vc.camera.cibleCamera = result.voitures->any(position=v.position-1))
+  post traquageRadar:result.voitures->select(position>1)->forAll(v|v.vc.radar.cibleRadar = result.voitures->select(position=v.position-1))
+  post radioMisAJour: result.voitures->forAll(v| v.vc.radio.receveurs = result.voitures->excluding(v))
+
+  
+  ajoutPeloton(p:Platoon)
+  pre pelotonPasDejaDansSystem:self.pelotons->excludes(p)
+  post pelotonAjoute:self.pelotons= self.pelotons@pre->including(p)
+  
+  dissoudrePeloton(p:Platoon)
+  pre vontuiresOntConducteur:p.voitures->forAll(conducteur->notEmpty())
+  post positionMisAJour:p.voitures->forAll(position=0)
+  post aucunTraquageCamera:p.voitures->forAll(vc.camera.cibleCamera->isEmpty())
+  post aucunTraquageRadar:p.voitures->forAll(vc.radar.cibleRadar->isEmpty())
+  post aucunRadio:p.voitures->forAll(vc.radio.receveurs->isEmpty())
+  post pelotonPlusDansSysteme: self.pelotons = self.pelotons@pre->excluding(p)
+  
+  enregistrerVoiture(voiture:PlatoonVehicule)
+  pre voiturePasDansSysteme:self.enregistres->excludes(voiture)
+  pre pasDeConducteur: voiture.conducteur->isEmpty()
+  pre peripheriquesPresent: voiture.vc->isDefined and voiture.vc.radar->isDefined() and voiture.vc.camera->isDefined() and voiture.vc.radio->isDefined() and voiture.vc.gps->isDefined()
+  post voitureDansSystem: self.enregistres = self.enregistres@pre->including(voiture)
+  
+  inscrireConducteur(conducteur:Conducteur)
+  pre conducteurPasDansSysteme:self.inscrits->excludes(conducteur)
+  pre conducteurNom: conducteur.name.size()>0
+  post conducteurDansSystem: self.inscrits = self.inscrits@pre->including(conducteur)
+  
+  
 end
 
 class GPS
@@ -57,9 +93,9 @@ class PlatoonVehicule
     ID : Integer
     position : Integer
   operations
-    quitterPlatoon()
+    quitterPlatoon(becomeNewPeloton:Boolean)
 	 pre leaderQuitterSiConducteurPosition2:self.position=1 implies self.peloton.voitures->select(position=2).conducteur->notEmpty()
-	 post plusDansPeloton: self.peloton.voitures = self.peloton.voitures@pre->excluding(self)
+	 post plusDansPeloton: self.peloton.voitures = self.peloton.voitures@pre->excluding(self) and self.peloton <> self.peloton@pre 
 	 post aucunTraquageCamera: self.vc.camera.cibleCamera->isEmpty()
 	 post aucunTraquageRadar: self.vc.camera.cibleCamera->isEmpty()
 	 post aucunRadio: self.vc.radio.receveurs->isEmpty()
@@ -68,11 +104,11 @@ class PlatoonVehicule
 	 post cameraPelotonMisAJour: self@pre.peloton.voitures->any(position=self.position@pre).vc.camera.cibleCamera->includes(self@pre.peloton.voitures->any(position=self.position@pre-1))
 	 post radarPelotonMisAJour: self@pre.peloton.voitures->any(position=self.position@pre).vc.radar.cibleRadar->includes(self@pre.peloton.voitures->any(position=self.position@pre-1))
 	 post radioPelotonMisajour: self@pre.peloton.voitures->forAll(v| v.vc.radio.receveurs = self@pre.peloton.voitures->excluding(v))
-end
-
-aggregation PlatoonBuildup between
-  Platoon[1] role peloton
-  PlatoonVehicule[1..*] role voitures
+	 post newPeloton:if becomeNewPeloton then self.peloton->isDefined() else self.peloton->isUndefined() endif
+	 
+	setConducteur(conducteur:Conducteur)
+	 pre pasDeConducteur: self.conducteur->isUndefined()
+	 post conducteurSetter:self.conducteur = conducteur
 end
 
 association Gestion between
@@ -132,5 +168,5 @@ end
 
 association ReceptionGPS between
   VehiculeController[1]
-  GPS[1]
+  GPS[1] role gps
 end
