@@ -14,21 +14,26 @@ end
 
 class System
  operations
+ 
+ --Operation #1 : Crée un peloton à partir d'un leader et des voitures qui vont le suivre. La voiture et le
+ -- 			  le conducteur du leader doivent etre inscrits dans le systeme, mais pas necessaire pour les autres voitures.
   createPeloton(leader:PlatoonVehicule,voitures:Set(PlatoonVehicule)) : Platoon
       pre voituresEnregistrees:self.enregistres.ID->includes(leader.ID)
       pre conducteurLeaderInscrit:self.inscrits.ID->includes(leader.conducteur.ID)
-      pre leaderAConducteur:leader.conducteur->notEmpty()
       post tousVoituresDansPeloton:result.voitures->includesAll(voitures->including(leader)) and result.voitures->size()=voitures->size()+1
       post positionValide: result.voitures->forAll(v|result.voitures->sortedBy(position)->at(v.position)=v) and result.voitures->any(position=1) = leader
       post traquageCamera:result.voitures->select(position>1)->forAll(v|v.vc.camera.cibleCamera = result.voitures->any(position=v.position-1))
       post traquageRadar:result.voitures->select(position>1)->forAll(v|v.vc.radar.cibleRadar = result.voitures->any(position=v.position-1))
       post radioMisAJour: result.voitures->forAll(v| v.vc.radio.receveurs = result.voitures->excluding(v))
 
-
+-- Operation #2 ajoutePeloton dans la liste des peloton actifs
   ajoutPeloton(p:Platoon)
       pre pelotonPasDejaDansSystem:self.pelotons->excludes(p)
       post pelotonAjoute:self.pelotons= self.pelotons@pre->including(p)
 
+-- Operation #3 enleve le peloton du systeme et enleve les liens entre les voitures de ce dernier.
+-- 				chaque voiture du peloton doivent avoir un conducteur pour eviter qu'une voiture sans conducteur
+-- 				soit enlever de son peloton alors qu'ell est en mouvement.
   dissoudrePeloton(p:Platoon)
       pre vontuiresOntConducteur:p.voitures->forAll(conducteur->notEmpty())
       post positionMisAJour:p.voitures->forAll(position=0)
@@ -37,21 +42,26 @@ class System
       post aucunRadio:p.voitures->forAll(vc.radio.receveurs->isEmpty())
       post pelotonPlusDansSysteme: self.pelotons = self.pelotons@pre->excluding(p)
 
+--Operation #4 Enregistre une voiture dans le systeme 
   enregistrerVoiture(voiture:PlatoonVehicule)
       pre voiturePasDansSysteme:self.enregistres->excludes(voiture)
       pre pasDeConducteur: voiture.conducteur->isEmpty()
---      pre peripheriquesPresent: voiture.vc->isDefined and voiture.vc.radar->isDefined() and voiture.vc.camera->isDefined() and voiture.vc.radio->isDefined() and voiture.vc.gps->isDefined()
-      post voitureDansSystem: self.enregistres = self.enregistres@pre->including(voiture)
+      post voitureDansSysteme: self.enregistres = self.enregistres@pre->including(voiture)
 
+--Operation #4 Inscrit une voiture dans le systeme  
   inscrireConducteur(conducteur:Conducteur)
       pre conducteurPasDansSysteme:self.inscrits->excludes(conducteur)
       pre conducteurNom: conducteur.name.size()>0
       post conducteurDansSystem: self.inscrits = self.inscrits@pre->including(conducteur)
 	  
-  listeActivePelotons() : Set(Platoon) = self.pelotons->select(p | p.voitures->size() > 1)
+--Requete #1
+  listePelotonsActifs() : Set(Platoon) = self.pelotons->select(p | p.voitures->size() > 1)
+--Requete #2
   listeVehiculesInscritsDansPelotons() : Bag(PlatoonVehicule) = self.pelotons.voitures->select(v | self.enregistres->includes(v))
+--Requete #3
   listeConducteursInscritsDansPelotons() : Bag(Conducteur) = self.pelotons.voitures.conducteur->select( c | self.inscrits->includes(c))
-  listePelotonsSplittables() : Set(Platoon) = self.pelotons->select(p | p.voitures.conducteur->size() > 1)		  
+--Requete #4
+  listePelotonsDefusionables() : Set(Platoon) = self.pelotons->select(p | p.voitures.conducteur->size() > 1)		  
 end
 
 class GPS
@@ -65,6 +75,7 @@ end
 
 class Platoon
   operations
+--Operation #5 Prend les voitures du peloton entré en parametre et les met à la fin du peloton sur lequel la fonction est appelée
    fusion( peloton1: Platoon)
         pre differentPelotons:self <> peloton1
         post peloton1retire:self.gestionnaire.pelotons = self.gestionnaire.pelotons@pre->excluding(peloton1)
@@ -75,8 +86,11 @@ class Platoon
             peloton1.voitures->select(v|v.position=1).vc.radar.cibleRadar->includes(last1)
         post radioPeloton2Misajour: self.voitures->forAll(v| v.vc.radio.receveurs = self.voitures->excluding(v))
 
+-- Operation #6 La voiture entrée en parametre et toutes les voitures derières elle sont mis dans un nouveau peloton
+-- 				et sont retirées du peloton en cours
    defusion(newLeader:PlatoonVehicule) : Platoon
-        pre possedeConducteurs: newLeader.conducteur->isDefined()
+		pre leaderDanslePeloton: self.voitures->includes(newLeader)
+        pre possedeConducteurs: newLeader.conducteur.isDefined()
         pre pasDejaLeader:  newLeader.position <> 1
         post positionAjour:result.voitures->forAll(v|self.voitures@pre->select(c|c.position=v.position + self.voitures->size()).ID->includes(v.ID))
         post newLeaderNeTraquePlusCamera:newLeader.vc.camera.cibleCamera->isEmpty()
@@ -84,13 +98,16 @@ class Platoon
         post radioPeloton1Misajour: self.voitures->forAll(v| v.vc.radio.receveurs = self.voitures->excluding(v))
         post radioPeloton2Misajour: result.voitures->forAll(v| v.vc.radio.receveurs = result.voitures->excluding(v))
 
+ --Operation # 7 Ajoute le vehicule entré en parametre à la fin du peloton
    joindreVoiture(newVehicule:PlatoonVehicule)
+		pre newVehiculePasDansPeloton: self.voitures->excludes(newVehicule)
         post newVehiculeInclut: self.voitures = self.voitures@pre->including(newVehicule)
         post newVehiculeALaFin: newVehicule.position = self.voitures->size()
         post newVehiculeCamera: newVehicule.vc.camera.cibleCamera=self.voitures->any(position=newVehicule.position-1)
         post newVehiculeRadar: newVehicule.vc.radar.cibleRadar=self.voitures->any(position=newVehicule.position-1)
         post radioMisAJour: self.voitures->forAll(v| v.vc.radio.receveurs = self.voitures->excluding(v))
 		
+--Requete #5
    obtenirLeader() : PlatoonVehicule = self.voitures->any(position = 1)				
 end
 
@@ -99,6 +116,9 @@ class PlatoonVehicule
     ID : Integer
     position : Integer
   operations
+ 
+ --Operation #8 Voiture quitte son peloton seulement si conducteur pour continuer la route si en mouvement. 
+ -- 			Si leader le vehicule derière doit avoir un conducteur pour pour qu'il puisse devenir le nouveau leader.
     quitterPlatoon()
      pre leaderQuitterSiConducteurPosition2:self.position=1 implies self.peloton.voitures->select(position=2).conducteur->notEmpty()
      post plusDansPeloton: self.peloton.voitures = self.peloton.voitures@pre->excluding(self) and self.peloton <> self.peloton@pre
@@ -110,12 +130,11 @@ class PlatoonVehicule
      post cameraPelotonMisAJour: self@pre.peloton.voitures->any(position=self.position@pre).vc.camera.cibleCamera->includes(self@pre.peloton.voitures->any(position=self.position@pre-1))
      post radarPelotonMisAJour: self@pre.peloton.voitures->any(position=self.position@pre).vc.radar.cibleRadar->includes(self@pre.peloton.voitures->any(position=self.position@pre-1))
      post radioPelotonMisajour: self@pre.peloton.voitures->forAll(v| v.vc.radio.receveurs = self@pre.peloton.voitures->excluding(v))
-
-    setConducteur(conducteur:Conducteur)
-     pre pasDeConducteur: self.conducteur.isUndefined()
-     post conducteurSetter:self.conducteur = conducteur
 	 
+	 
+-- Requete #6
 	listeVehiculesDevant(v : PlatoonVehicule) : Set(PlatoonVehicule) = self.peloton.voitures->select(v | v.position < self.position)
+--Requete #7
 	listeVehiculesDerriere(v : PlatoonVehicule) : Set(PlatoonVehicule) = self.peloton.voitures->select(v | v.position > self.position)	 
 end
 
@@ -187,42 +206,42 @@ end
 
 constraints
 
---leader doit avoir un conducteur
+--1. leader doit avoir un conducteur
 context Platoon
     inv leaderConducteur : self.voitures->select(position = 1).conducteur->notEmpty()
 
--- Toutes les voitures doivent communiquer avec les autres voitures de son peloton.
+--2. Toutes les voitures doivent communiquer avec les autres voitures de son peloton.
 context Platoon
     inv comRadio : self.voitures->forAll(v| v.vc.radio.receveurs = self.voitures->excluding(v))
 
--- Le leader d’un peloton doit être inscrits dans le système.
+--3. Le leader d’un peloton doit être inscrits dans le système.
 context System
     inv voituresEnr : self.enregistres->includesAll(self.pelotons.voitures->select(position=1))
 
---Le conducteurs du véhicule leader d’un peloton doit être inscrit dans le système.
+--4. Le conducteurs du véhicule leader d’un peloton doit être inscrit dans le système.
 context System
     inv conducteurLeaderInscrit : self.inscrits->includesAll(self.pelotons.voitures->select(position = 1).conducteur)
 
--- Le radar de chaque véhicule de peloton observe le vehicule devant lui
+--5. Le radar de chaque véhicule de peloton observe le vehicule devant lui
 context Platoon
     inv traquageRadar : self.voitures->select(position>1)->forAll(v|v.vc.radar.cibleRadar = self.voitures->any(position=v.position-1))
 
--- Le camera de chaque véhicule de peloton observe le vehicule devant lui
+--6. Le camera de chaque véhicule de peloton observe le vehicule devant lui
 context Platoon
     inv traquageCamera : self.voitures->select(position>1)->forAll(v|v.vc.camera.cibleCamera = self.voitures->any(position=v.position-1))
 
--- Tous les véhicules d’un peloton forment une chaîne
+--7. Tous les véhicules d’un peloton forment une chaîne
 context Platoon
     inv positionValide: self.voitures->forAll(v|self.voitures->sortedBy(position)->at(v.position)=v)
 
--- Un leader ne traque aucun véhicule
+--8. Un leader ne traque aucun véhicule
 context Platoon
     inv leaderNeTraquePas : self.voitures->any(position = 1).vc.camera.cibleCamera.isUndefined() and self.voitures->any(position = 1).vc.radar.cibleRadar.isUndefined()
 
--- Chaque vehicule a un id différent
+--9. Chaque vehicule a un id différent
 context System
     inv voitureIdDiff : self.enregistres->forAll( v | self.enregistres->excluding(v).ID->excludes(v.ID))
 	
--- Chaque conducteur a un id différent
+--10 Chaque conducteur a un id différent
 context System
     inv conducteurIdDiff : self.inscrits->forAll( c | self.inscrits->excluding(c).ID->excludes(c.ID))
