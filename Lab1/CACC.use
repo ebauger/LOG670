@@ -79,12 +79,12 @@ class Platoon
    fusion( peloton1: Platoon)
         pre differentPelotons:self <> peloton1
         post peloton1retire:self.gestionnaire.pelotons = self.gestionnaire.pelotons@pre->excluding(peloton1)
-        post voituresPeloton1:self.voitures = self.voitures@pre->union(peloton1.voitures)
+        post voituresPeloton:self.voitures = self.voitures@pre->union(peloton1.voitures@pre)
         post positionMiseajour:peloton1.voitures->forAll(v|self.voitures->select(c|c.position=v.position + self.voitures@pre->size()).ID->includes(v.ID))
         post leader2TraqueFinpeloton1: let last1:PlatoonVehicule = self.voitures@pre->any(v|v.position=self.voitures@pre->size()) in
-            peloton1.voitures->select(v|v.position=1).vc.camera.cibleCamera->includes(last1) and
-            peloton1.voitures->select(v|v.position=1).vc.radar.cibleRadar->includes(last1)
-        post radioPeloton2Misajour: self.voitures->forAll(v| v.vc.radio.receveurs = self.voitures->excluding(v))
+            peloton1.voitures@pre->select(v|v.position@pre=1).vc.camera.cibleCamera->includes(last1) and
+            peloton1.voitures@pre->select(v|v.position@pre=1).vc.radar.cibleRadar->includes(last1)
+        post radioPeloton1Misajour: self.voitures->forAll(v| v.vc.radio.receveurs = self.voitures->excluding(v))
 
 -- Operation #6 La voiture entrée en parametre et toutes les voitures derières elle sont mis dans un nouveau peloton
 -- 				et sont retirées du peloton en cours
