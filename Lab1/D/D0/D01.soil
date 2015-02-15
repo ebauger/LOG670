@@ -1,0 +1,31 @@
+!new System('s1')
+
+--Creation de la voiture 0
+!new PlatoonVehicule('v0')
+!set v0.ID:=0
+!new VehiculeController('vc0')
+!new Radio('radio0')
+!new Radar('radar0')
+!new Camera('cam0')
+!insert (@v0,@vc0) into ControllePar
+!insert (@vc0,@cam0) into ReceptionCamera
+!insert (@vc0,@radar0) into ReceptionRadar
+!insert (@vc0,@radio0) into sendRadioData
+
+--Creation de la voiture 1
+!new PlatoonVehicule('v1')
+!set v1.ID:=1
+!new VehiculeController('vc1')
+!new Radio('radio1')
+!new Radar('radar1')
+!new Camera('cam1')
+!insert (@v1,@vc1) into ControllePar
+!insert (@vc1,@cam1) into ReceptionCamera
+!insert (@vc1,@radar1) into ReceptionRadar
+!insert (@vc1,@radio1) into sendRadioData
+
+!new Conducteur('c0')
+!insert (@v0,@c0) into Conducteur
+!insert (@s1,@c0) into Inscription
+!insert (@s1,@v0) into Enregistrement
+!openter s1 createPeloton(v0,Set{v0,v1})

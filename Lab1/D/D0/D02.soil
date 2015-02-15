@@ -37,27 +37,5 @@
 !insert (@vc2,@radio2) into sendRadioData
 !new Conducteur('c0')
 !insert (@v0,@c0) into Conducteur
-!insert (@s1,@c0) into Inscription
 !insert (@s1,@v0) into Enregistrement
 !openter s1 createPeloton(v0,Set{v1,v2})
-!new Platoon('p0')
-!insert (@p0,@v0) into PlatoonBuildup
-!set v0.position:=1
-!insert (@radio0,@v1) into TransmissionRadio
-!insert (@radio0,@v2) into TransmissionRadio
-
-!insert (@p0,@v1) into PlatoonBuildup
-!set v1.position:=2
-!insert (@cam1,@v0) into TraquageCamera
-!insert (@radar1,@v0) into TraquageRadar
-!insert (@radio1,@v0) into TransmissionRadio
-!insert (@radio1,@v2) into TransmissionRadio
-
-!insert (@p0,@v2) into PlatoonBuildup
-!set v2.position:=3
-!insert (@cam2,@v1) into TraquageCamera
-!insert (@radar2,@v1) into TraquageRadar
-!insert (@radio2,@v0) into TransmissionRadio
-!insert (@radio2,@v1) into TransmissionRadio
-
-!opexit p0

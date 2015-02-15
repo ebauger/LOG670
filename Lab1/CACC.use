@@ -155,12 +155,12 @@ association Gestion between
 end
 
 association Enregistrement between
- System[1]
+ System[0..1]
  PlatoonVehicule[*] role enregistres
 end
 
 association Inscription between
- System[1]
+ System[0..1]
  Conducteur[*] role inscrits
 end
 
@@ -175,7 +175,7 @@ association sendRadioData between
 end
 
 association TransmissionRadio between
-  Radio[0..1] role emetteur
+  Radio[0..*] role emetteur
   PlatoonVehicule[0..*] role receveurs
 end
 
