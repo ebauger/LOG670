@@ -1,0 +1,6 @@
+!new System('s1')
+!new PlatoonVehicule('v0')
+!openter s1 enregistrerVoiture(v0)
+!insert (@s1,@v0) into Enregistrement
+!set v0.ID:=0
+!opexit

@@ -15,10 +15,11 @@ end
 class System
  operations
  
- --Operation #1 : Crée un peloton à partir d'un leader et des voitures qui vont le suivre. La voiture et le
+ --Operation #0 : Crée un peloton à partir d'un leader et des voitures qui vont le suivre. La voiture et le
  -- 			  le conducteur du leader doivent etre inscrits dans le systeme, mais pas necessaire pour les autres voitures.
   createPeloton(leader:PlatoonVehicule,voitures:Set(PlatoonVehicule)) : Platoon
-      pre voituresEnregistrees:self.enregistres.ID->includes(leader.ID)
+	  pre leaderPasDansSuiveux: voitures->excludes(leader)
+      pre leaderEnregistrees:self.enregistres.ID->includes(leader.ID)
       pre conducteurLeaderInscrit:self.inscrits.ID->includes(leader.conducteur.ID)
       post tousVoituresDansPeloton:result.voitures->includesAll(voitures->including(leader)) and result.voitures->size()=voitures->size()+1
       post positionValide: result.voitures->forAll(v|result.voitures->sortedBy(position)->at(v.position)=v) and result.voitures->any(position=1) = leader
@@ -26,12 +27,12 @@ class System
       post traquageRadar:result.voitures->select(position>1)->forAll(v|v.vc.radar.cibleRadar = result.voitures->any(position=v.position-1))
       post radioMisAJour: result.voitures->forAll(v| v.vc.radio.receveurs = result.voitures->excluding(v))
 
--- Operation #2 ajoutePeloton dans la liste des peloton actifs
-  ajoutPeloton(p:Platoon)
+-- Operation #1 ajoute un Peloton dans la liste des peloton actifs
+  ajouterPeloton(p:Platoon)
       pre pelotonPasDejaDansSystem:self.pelotons->excludes(p)
       post pelotonAjoute:self.pelotons= self.pelotons@pre->including(p)
 
--- Operation #3 enleve le peloton du systeme et enleve les liens entre les voitures de ce dernier.
+-- Operation #2 enleve le peloton du systeme et enleve les liens entre les voitures de ce dernier.
 -- 				chaque voiture du peloton doivent avoir un conducteur pour eviter qu'une voiture sans conducteur
 -- 				soit enlever de son peloton alors qu'ell est en mouvement.
   dissoudrePeloton(p:Platoon)
@@ -42,17 +43,21 @@ class System
       post aucunRadio:p.voitures->forAll(vc.radio.receveurs->isEmpty())
       post pelotonPlusDansSysteme: self.pelotons = self.pelotons@pre->excluding(p)
 
---Operation #4 Enregistre une voiture dans le systeme 
+--Operation #3 Enregistre une voiture dans le systeme 
   enregistrerVoiture(voiture:PlatoonVehicule)
       pre voiturePasDansSysteme:self.enregistres->excludes(voiture)
       pre pasDeConducteur: voiture.conducteur->isEmpty()
       post voitureDansSysteme: self.enregistres = self.enregistres@pre->including(voiture)
+	  post voitureObtientId: voiture.ID.isDefined()
+	  post IdUnique: self.enregistres->one(ID = voiture.ID)
 
---Operation #4 Inscrit une voiture dans le systeme  
+--Operation #4 Inscrit un conducteur dans le systeme  
   inscrireConducteur(conducteur:Conducteur)
       pre conducteurPasDansSysteme:self.inscrits->excludes(conducteur)
-      pre conducteurNom: conducteur.name.size()>0
+      pre conducteurNom: conducteur.name.isDefined() and conducteur.name.size()>0
       post conducteurDansSystem: self.inscrits = self.inscrits@pre->including(conducteur)
+	  post conducteurObtientId: conducteur.ID.isDefined()
+	  post IdUnique: self.inscrits->one(ID = conducteur.ID)
 	  
 --Requete #1
   listePelotonsActifs() : Set(Platoon) = self.pelotons->select(p | p.voitures->size() > 1)
@@ -80,7 +85,7 @@ class Platoon
         pre differentPelotons:self <> peloton1
         post peloton1retire:self.gestionnaire.pelotons = self.gestionnaire.pelotons@pre->excluding(peloton1)
         post voituresPeloton:self.voitures = self.voitures@pre->union(peloton1.voitures@pre)
-        post positionMiseajour:peloton1.voitures->forAll(v|self.voitures->select(c|c.position=v.position + self.voitures@pre->size()).ID->includes(v.ID))
+        post positionMiseajour:peloton1.voitures->forAll(v|self.voitures->any(c|c.position=v.position + self.voitures@pre->size())=v)
         post leader2TraqueFinpeloton1: let last1:PlatoonVehicule = self.voitures@pre->any(v|v.position=self.voitures@pre->size()) in
             peloton1.voitures@pre->select(v|v.position@pre=1).vc.camera.cibleCamera->includes(last1) and
             peloton1.voitures@pre->select(v|v.position@pre=1).vc.radar.cibleRadar->includes(last1)
@@ -92,7 +97,7 @@ class Platoon
 		pre leaderDanslePeloton: self.voitures->includes(newLeader)
         pre possedeConducteurs: newLeader.conducteur.isDefined()
         pre pasDejaLeader:  newLeader.position <> 1
-        post positionAjour:result.voitures->forAll(v|self.voitures@pre->select(c|c.position@pre=v.position + self.voitures->size()).ID->includes(v.ID))
+        post positionAjour:result.voitures->forAll(v|self.voitures@pre->any(c|c.position@pre=v.position + self.voitures->size()) = v)
         post newLeaderNeTraquePlusCamera:newLeader.vc.camera.cibleCamera->isEmpty()
         post newLeaderNeTraquePlusRadar:newLeader.vc.radar.cibleRadar->isEmpty()
         post radioPeloton1Misajour: self.voitures->forAll(v| v.vc.radio.receveurs = self.voitures->excluding(v))
@@ -120,16 +125,17 @@ class PlatoonVehicule
  --Operation #8 Voiture quitte son peloton seulement si conducteur pour continuer la route si en mouvement. 
  -- 			Si leader le vehicule derière doit avoir un conducteur pour pour qu'il puisse devenir le nouveau leader.
     quitterPlatoon()
-     pre leaderQuitterSiConducteurPosition2:self.position=1 implies self.peloton.voitures->select(position=2).conducteur->notEmpty()
+	 pre possedeConducteur: self.conducteur.isDefined()
+     pre leaderQuitterSiConducteurPosition2: self.position=1 implies self.peloton.voitures->any(position=2).conducteur.isDefined()
      post plusDansPeloton: self.peloton.voitures = self.peloton.voitures@pre->excluding(self) and self.peloton <> self.peloton@pre
      post aucunTraquageCamera: self.vc.camera.cibleCamera->isEmpty()
      post aucunTraquageRadar: self.vc.camera.cibleCamera->isEmpty()
      post aucunRadio: self.vc.radio.receveurs->isEmpty()
-     post positionPelotonMisaJour: self@pre.peloton.voitures->select(position<self@pre.position)->forAll(v|self@pre.peloton.voitures@pre->select(position=v.position).ID->includes(v.ID)) and
-                                   self@pre.peloton.voitures->select(position>=self@pre.position)->forAll(v|self@pre.peloton.voitures@pre->select(position=v.position+1).ID->includes(v.ID))
-     post cameraPelotonMisAJour: self@pre.peloton.voitures->any(position=self.position@pre).vc.camera.cibleCamera->includes(self@pre.peloton.voitures->any(position=self.position@pre-1))
-     post radarPelotonMisAJour: self@pre.peloton.voitures->any(position=self.position@pre).vc.radar.cibleRadar->includes(self@pre.peloton.voitures->any(position=self.position@pre-1))
-     post radioPelotonMisajour: self@pre.peloton.voitures->forAll(v| v.vc.radio.receveurs = self@pre.peloton.voitures->excluding(v))
+     post positionPelotonMisaJour: self.peloton@pre.voitures@pre->sortedBy(position)->excluding(self) = self.peloton@pre.voitures->sortedBy(position) and
+								   self.peloton@pre.voitures->forAll(v|self.peloton@pre.voitures->sortedBy(position)->at(v.position)=v)
+     post cameraPelotonMisAJour: self.peloton@pre.voitures->any(position=self.position@pre).vc.camera.cibleCamera->includes(self.peloton@pre.voitures->any(position=self.position@pre-1))
+     post radarPelotonMisAJour: self.peloton@pre.voitures->any(position=self.position@pre).vc.radar.cibleRadar->includes(self.peloton@pre.voitures->any(position=self.position@pre-1))
+     post radioPelotonMisajour: self.peloton@pre.voitures->forAll(v| v.vc.radio.receveurs = self.peloton@pre.voitures->excluding(v))
 	 
 	 
 -- Requete #6

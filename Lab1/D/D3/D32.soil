@@ -1,0 +1,5 @@
+!new System('s1')
+!new PlatoonVehicule('v0')
+!new Conducteur('c0')
+!insert (@v0,@c0) into Conducteur
+!openter s1 enregistrerVoiture(v0)

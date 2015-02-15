@@ -1,0 +1,20 @@
+!new System('s1')
+
+--Creation de la voiture 0
+!new PlatoonVehicule('v0')
+!set v0.ID:=0
+!new VehiculeController('vc0')
+!new Radio('radio0')
+!new Radar('radar0')
+!new Camera('cam0')
+!insert (@v0,@vc0) into ControllePar
+!insert (@vc0,@cam0) into ReceptionCamera
+!insert (@vc0,@radar0) into ReceptionRadar
+!insert (@vc0,@radio0) into sendRadioData
+
+--Creation du Peloton 0
+!new Platoon('p0')
+!insert (@p0,@v0) into PlatoonBuildup
+!set v0.position:=1
+!insert (@s1,@p0) into Gestion
+!openter s1 ajouterPeloton(p0)

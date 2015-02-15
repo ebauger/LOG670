@@ -1,0 +1,3 @@
+!new System('s1')
+!new Conducteur('c0')
+!openter s1 inscrireConducteur(c0)

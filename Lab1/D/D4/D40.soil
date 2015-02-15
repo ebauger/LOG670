@@ -1,0 +1,7 @@
+!new System('s1')
+!new Conducteur('c0')
+!set c0.name:='Bob'
+!openter s1 inscrireConducteur(c0)
+!insert (@s1,@c0) into Inscription
+!set c0.ID:=0
+!opexit
