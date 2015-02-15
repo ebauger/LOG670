@@ -5,7 +5,7 @@ public class mainapp {
 	int idVoiture = 0;
 	
 	public static void main(String[] args) {
-		defusion f = new defusion();
+		Dissoudre f = new Dissoudre();
 		f.execute();
 	}
 	
@@ -75,13 +75,18 @@ public class mainapp {
 		System.out.println("!new System('s1')");
 	}
 	
-	public void openEnter()
+	public void openEnter(String reste)
 	{
-		System.out.println("!openter");
+		System.out.println("!openter "+reste);
 	}
 	
 	public void openExit()
 	{
 		System.out.println("!opexit");
+	}
+	
+	public void openExit(String reste)
+	{
+		System.out.println("!opexit " + reste);
 	}
 }
