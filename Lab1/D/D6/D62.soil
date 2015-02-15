@@ -1,0 +1,83 @@
+
+--Creation de la voiture 0
+!new PlatoonVehicule('v0')
+!set v0.ID:=0
+!new VehiculeController('vc0')
+!new Radio('radio0')
+!new Radar('radar0')
+!new Camera('cam0')
+!insert (@v0,@vc0) into ControllePar
+!insert (@vc0,@cam0) into ReceptionCamera
+!insert (@vc0,@radar0) into ReceptionRadar
+!insert (@vc0,@radio0) into sendRadioData
+
+--Creation de la voiture 1
+!new PlatoonVehicule('v1')
+!set v1.ID:=1
+!new VehiculeController('vc1')
+!new Radio('radio1')
+!new Radar('radar1')
+!new Camera('cam1')
+!insert (@v1,@vc1) into ControllePar
+!insert (@vc1,@cam1) into ReceptionCamera
+!insert (@vc1,@radar1) into ReceptionRadar
+!insert (@vc1,@radio1) into sendRadioData
+
+--Creation de la voiture 2
+!new PlatoonVehicule('v2')
+!set v2.ID:=2
+!new VehiculeController('vc2')
+!new Radio('radio2')
+!new Radar('radar2')
+!new Camera('cam2')
+!insert (@v2,@vc2) into ControllePar
+!insert (@vc2,@cam2) into ReceptionCamera
+!insert (@vc2,@radar2) into ReceptionRadar
+!insert (@vc2,@radio2) into sendRadioData
+
+--Creation de la voiture 3
+!new PlatoonVehicule('v3')
+!set v3.ID:=3
+!new VehiculeController('vc3')
+!new Radio('radio3')
+!new Radar('radar3')
+!new Camera('cam3')
+!insert (@v3,@vc3) into ControllePar
+!insert (@vc3,@cam3) into ReceptionCamera
+!insert (@vc3,@radar3) into ReceptionRadar
+!insert (@vc3,@radio3) into sendRadioData
+
+--Creation du Peloton 0
+!new Platoon('p0')
+!insert (@p0,@v0) into PlatoonBuildup
+!set v0.position:=1
+!insert (@radio0,@v1) into TransmissionRadio
+!insert (@radio0,@v2) into TransmissionRadio
+!insert (@radio0,@v3) into TransmissionRadio
+!insert (@p0,@v1) into PlatoonBuildup
+!set v1.position:=2
+!insert (@cam1,@v0) into TraquageCamera
+!insert (@radar1,@v0) into TraquageRadar
+!insert (@radio1,@v0) into TransmissionRadio
+!insert (@radio1,@v2) into TransmissionRadio
+!insert (@radio1,@v3) into TransmissionRadio
+!insert (@p0,@v2) into PlatoonBuildup
+!set v2.position:=3
+!insert (@cam2,@v1) into TraquageCamera
+!insert (@radar2,@v1) into TraquageRadar
+!insert (@radio2,@v0) into TransmissionRadio
+!insert (@radio2,@v1) into TransmissionRadio
+!insert (@radio2,@v3) into TransmissionRadio
+!insert (@p0,@v3) into PlatoonBuildup
+!set v3.position:=4
+!insert (@cam3,@v2) into TraquageCamera
+!insert (@radar3,@v2) into TraquageRadar
+!insert (@radio3,@v0) into TransmissionRadio
+!insert (@radio3,@v1) into TransmissionRadio
+!insert (@radio3,@v2) into TransmissionRadio
+
+--Creation Conducteur 2
+!new Conducteur('c2')
+!insert (@v0,@c2) into Conducteur
+
+!openter p0 defusion(v0)

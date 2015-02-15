@@ -92,7 +92,7 @@ class Platoon
 		pre leaderDanslePeloton: self.voitures->includes(newLeader)
         pre possedeConducteurs: newLeader.conducteur.isDefined()
         pre pasDejaLeader:  newLeader.position <> 1
-        post positionAjour:result.voitures->forAll(v|self.voitures@pre->select(c|c.position=v.position + self.voitures->size()).ID->includes(v.ID))
+        post positionAjour:result.voitures->forAll(v|self.voitures@pre->select(c|c.position@pre=v.position + self.voitures->size()).ID->includes(v.ID))
         post newLeaderNeTraquePlusCamera:newLeader.vc.camera.cibleCamera->isEmpty()
         post newLeaderNeTraquePlusRadar:newLeader.vc.radar.cibleRadar->isEmpty()
         post radioPeloton1Misajour: self.voitures->forAll(v| v.vc.radio.receveurs = self.voitures->excluding(v))
