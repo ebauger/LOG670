@@ -59,14 +59,14 @@ class System
 	  post conducteurObtientId: conducteur.ID.isDefined()
 	  post IdUnique: self.inscrits->one(ID = conducteur.ID)
 	  
---Requete #1
+--Requete #1 Un peloton est considéré comme actif s'il comporte plus qu'une voiture. 
   listePelotonsActifs() : Set(Platoon) = self.pelotons->select(p | p.voitures->size() > 1)
---Requete #2
+--Requete #2 
   listeVehiculesInscritsDansPelotons() : Bag(PlatoonVehicule) = self.pelotons.voitures->select(v | self.enregistres->includes(v))
 --Requete #3
   listeConducteursInscritsDansPelotons() : Bag(Conducteur) = self.pelotons.voitures.conducteur->select( c | self.inscrits->includes(c))
---Requete #4
-  listePelotonsDefusionables() : Set(Platoon) = self.pelotons->select(p | p.voitures.conducteur->size() > 1)		  
+--Requete #4 Un peloton est considéré comme défusionable s'il possede un leader potentiel, soit une voiture enregistrée qui possède un conducteur inscrit, autre que son leader actuel.
+  listePelotonsDefusionables() : Set(Platoon) = self.pelotons->select(p | p.voitures->select(v|self.enregistres->includes(v) and self.inscrits->includes(v.conducteur))->size() > 1)		  
 end
 
 class GPS
@@ -139,9 +139,9 @@ class PlatoonVehicule
 	 
 	 
 -- Requete #6
-	listeVehiculesDevant(v : PlatoonVehicule) : Set(PlatoonVehicule) = self.peloton.voitures->select(v | v.position < self.position)
+	listeVehiculesDevant() : Set(PlatoonVehicule) = self.peloton.voitures->select(v | v.position < self.position)
 --Requete #7
-	listeVehiculesDerriere(v : PlatoonVehicule) : Set(PlatoonVehicule) = self.peloton.voitures->select(v | v.position > self.position)	 
+	listeVehiculesDerriere() : Set(PlatoonVehicule) = self.peloton.voitures->select(v | v.position > self.position)	 
 end
 
 aggregation PlatoonBuildup between

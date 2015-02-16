@@ -1,0 +1,75 @@
+!new System('s1')
+
+--Creation de la voiture 0
+!new PlatoonVehicule('v0')
+!set v0.ID:=0
+!new VehiculeController('vc0')
+!new Radio('radio0')
+!new Radar('radar0')
+!new Camera('cam0')
+!insert (@v0,@vc0) into ControllePar
+!insert (@vc0,@cam0) into ReceptionCamera
+!insert (@vc0,@radar0) into ReceptionRadar
+!insert (@vc0,@radio0) into sendRadioData
+
+--Creation de la voiture 1
+!new PlatoonVehicule('v1')
+!set v1.ID:=1
+!new VehiculeController('vc1')
+!new Radio('radio1')
+!new Radar('radar1')
+!new Camera('cam1')
+!insert (@v1,@vc1) into ControllePar
+!insert (@vc1,@cam1) into ReceptionCamera
+!insert (@vc1,@radar1) into ReceptionRadar
+!insert (@vc1,@radio1) into sendRadioData
+
+--Creation de la voiture 2
+!new PlatoonVehicule('v2')
+!set v2.ID:=2
+!new VehiculeController('vc2')
+!new Radio('radio2')
+!new Radar('radar2')
+!new Camera('cam2')
+!insert (@v2,@vc2) into ControllePar
+!insert (@vc2,@cam2) into ReceptionCamera
+!insert (@vc2,@radar2) into ReceptionRadar
+!insert (@vc2,@radio2) into sendRadioData
+
+--Creation du Peloton 0
+!new Platoon('p0')
+!insert (@p0,@v0) into PlatoonBuildup
+!set v0.position:=1
+
+
+--Creation du Peloton 1
+!new Platoon('p1')
+!insert (@p1,@v1) into PlatoonBuildup
+!set v1.position:=1
+!insert (@radio1,@v2) into TransmissionRadio
+
+!insert (@p1,@v2) into PlatoonBuildup
+!set v2.position:=2
+!insert (@cam2,@v1) into TraquageCamera
+!insert (@radar2,@v1) into TraquageRadar
+!insert (@radio2,@v1) into TransmissionRadio
+
+!new Conducteur('c0')
+!insert (@v0,@c0) into Conducteur
+!set c0.ID:=0
+!new Conducteur('c1')
+!insert (@v1,@c1) into Conducteur
+!set c1.ID:=1
+!new Conducteur('c2')
+!insert (@v2,@c2) into Conducteur
+!set c1.ID:=2
+
+!insert (@s1,@p0) into Gestion
+!insert (@s1,@p1) into Gestion
+!insert (@s1,@c0) into Inscription
+!insert (@s1,@c1) into Inscription
+!insert (@s1,@v0) into Enregistrement
+!insert (@s1,@v1) into Enregistrement
+
+--Devrait retourner Bag{v0,v1} car seulement v0 et v1 sont inscrit dans le système
+?s1.listeVehiculesInscritsDansPelotons() = Bag{v0,v1}
