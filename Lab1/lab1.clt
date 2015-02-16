@@ -24,8 +24,8 @@
   </node>
   <node type="Class">
     <name>Radar</name>
-    <x_coord>794.1796993048971</x_coord>
-    <y_coord>347.70389298660945</y_coord>
+    <x_coord>780.1796993048971</x_coord>
+    <y_coord>361.70389298660945</y_coord>
     <hidden>false</hidden>
   </node>
   <node type="Class">
@@ -70,37 +70,37 @@
     <name>sendRadioData</name>
     <edgeproperty type="associationName" userDefined="true">
       <name>sendRadioData</name>
-      <x_coord>503.5185546875</x_coord>
-      <y_coord>373.884765625</y_coord>
+      <x_coord>500.0185546875</x_coord>
+      <y_coord>374.384765625</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="target" type="rolename" userDefined="false">
       <name>radio</name>
-      <x_coord>563.8974609375</x_coord>
-      <y_coord>394.0</y_coord>
+      <x_coord>565.015625</x_coord>
+      <y_coord>395.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="target" type="multiplicity" userDefined="true">
       <name>1</name>
-      <x_coord>602.0</x_coord>
-      <y_coord>372.0</y_coord>
+      <x_coord>600.0</x_coord>
+      <y_coord>373.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="source" type="rolename" userDefined="false">
       <name>vehiculeController</name>
-      <x_coord>500.0</x_coord>
+      <x_coord>495.0</x_coord>
       <y_coord>448.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="source" type="multiplicity" userDefined="true">
       <name>1</name>
-      <x_coord>506.7568359375</x_coord>
+      <x_coord>501.7568359375</x_coord>
       <y_coord>460.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty type="WayPoint" userDefined="false">
       <name>0</name>
-      <x_coord>498.0</x_coord>
+      <x_coord>493.0</x_coord>
       <y_coord>469.0</y_coord>
       <hidden>false</hidden>
       <id>0</id>
@@ -108,8 +108,8 @@
     </edgeproperty>
     <edgeproperty type="WayPoint" userDefined="false">
       <name>1</name>
-      <x_coord>600.0</x_coord>
-      <y_coord>368.0</y_coord>
+      <x_coord>598.0</x_coord>
+      <y_coord>369.0</y_coord>
       <hidden>false</hidden>
       <id>1</id>
       <specialid>2</specialid>
@@ -122,46 +122,46 @@
     <name>ReceptionGPS</name>
     <edgeproperty type="associationName" userDefined="false">
       <name>ReceptionGPS</name>
-      <x_coord>285.32470703125</x_coord>
-      <y_coord>465.73046875</y_coord>
+      <x_coord>287.546875</x_coord>
+      <y_coord>466.796875</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="target" type="rolename" userDefined="false">
-      <name>gPS</name>
-      <x_coord>213.0</x_coord>
-      <y_coord>459.0</y_coord>
+      <name>gps</name>
+      <x_coord>214.0</x_coord>
+      <y_coord>460.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="target" type="multiplicity" userDefined="false">
       <name>1</name>
-      <x_coord>196.7568359375</x_coord>
-      <y_coord>459.0</y_coord>
+      <x_coord>199.109375</x_coord>
+      <y_coord>459.5</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="source" type="rolename" userDefined="false">
       <name>vehiculeController</name>
-      <x_coord>322.81591796875</x_coord>
-      <y_coord>459.0</y_coord>
+      <x_coord>335.328125</x_coord>
+      <y_coord>460.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="source" type="multiplicity" userDefined="true">
       <name>1</name>
       <x_coord>421.0</x_coord>
-      <y_coord>467.0</y_coord>
+      <y_coord>468.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty type="WayPoint" userDefined="false">
       <name>0</name>
       <x_coord>431.0</x_coord>
-      <y_coord>480.0</y_coord>
+      <y_coord>481.0</y_coord>
       <hidden>false</hidden>
       <id>0</id>
       <specialid>1</specialid>
     </edgeproperty>
     <edgeproperty type="WayPoint" userDefined="false">
       <name>1</name>
-      <x_coord>211.0</x_coord>
-      <y_coord>480.0</y_coord>
+      <x_coord>212.0</x_coord>
+      <y_coord>481.0</y_coord>
       <hidden>false</hidden>
       <id>1</id>
       <specialid>2</specialid>
@@ -174,45 +174,45 @@
     <name>PlatoonBuildup</name>
     <edgeproperty type="associationName" userDefined="true">
       <name>PlatoonBuildup</name>
-      <x_coord>507.849365234375</x_coord>
-      <y_coord>137.8974609375</y_coord>
+      <x_coord>503.849365234375</x_coord>
+      <y_coord>138.3974609375</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="target" type="rolename" userDefined="false">
-      <name>platoonVehicule</name>
-      <x_coord>481.0</x_coord>
-      <y_coord>176.0</y_coord>
+      <name>voitures</name>
+      <x_coord>476.0</x_coord>
+      <y_coord>175.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="target" type="multiplicity" userDefined="true">
       <name>1..*</name>
-      <x_coord>460.94384765625</x_coord>
-      <y_coord>190.0</y_coord>
+      <x_coord>482.94384765625</x_coord>
+      <y_coord>196.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="source" type="rolename" userDefined="false">
-      <name>platoon</name>
-      <x_coord>472.23046875</x_coord>
-      <y_coord>94.0</y_coord>
+      <name>peloton</name>
+      <x_coord>474.359375</x_coord>
+      <y_coord>95.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="source" type="multiplicity" userDefined="true">
       <name>1</name>
-      <x_coord>532.0</x_coord>
-      <y_coord>74.0</y_coord>
+      <x_coord>529.0</x_coord>
+      <y_coord>75.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty type="WayPoint" userDefined="false">
       <name>0</name>
-      <x_coord>521.0</x_coord>
-      <y_coord>68.0</y_coord>
+      <x_coord>518.0</x_coord>
+      <y_coord>69.0</y_coord>
       <hidden>false</hidden>
       <id>0</id>
       <specialid>1</specialid>
     </edgeproperty>
     <edgeproperty type="WayPoint" userDefined="false">
       <name>1</name>
-      <x_coord>479.0</x_coord>
+      <x_coord>474.0</x_coord>
       <y_coord>211.0</y_coord>
       <hidden>false</hidden>
       <id>1</id>
@@ -226,37 +226,37 @@
     <name>TransmissionRadio</name>
     <edgeproperty type="associationName" userDefined="true">
       <name>TransmissionRadio</name>
-      <x_coord>508.468017578125</x_coord>
-      <y_coord>305.884765625</y_coord>
+      <x_coord>505.468017578125</x_coord>
+      <y_coord>307.384765625</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="target" type="rolename" userDefined="false">
       <name>receveurs</name>
-      <x_coord>502.0</x_coord>
-      <y_coord>301.0</y_coord>
+      <x_coord>499.0</x_coord>
+      <y_coord>305.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="target" type="multiplicity" userDefined="true">
-      <name>1..*</name>
-      <x_coord>486.94384765625</x_coord>
-      <y_coord>269.0</y_coord>
+      <name>*</name>
+      <x_coord>513.94384765625</x_coord>
+      <y_coord>272.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="source" type="rolename" userDefined="false">
       <name>emetteur</name>
-      <x_coord>540.3154296875</x_coord>
+      <x_coord>542.59375</x_coord>
       <y_coord>325.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="source" type="multiplicity" userDefined="true">
-      <name>1</name>
-      <x_coord>602.0</x_coord>
+      <name>*</name>
+      <x_coord>592.0</x_coord>
       <y_coord>335.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty type="WayPoint" userDefined="false">
       <name>0</name>
-      <x_coord>597.0</x_coord>
+      <x_coord>594.0</x_coord>
       <y_coord>346.0</y_coord>
       <hidden>false</hidden>
       <id>0</id>
@@ -264,8 +264,8 @@
     </edgeproperty>
     <edgeproperty type="WayPoint" userDefined="false">
       <name>1</name>
-      <x_coord>500.0</x_coord>
-      <y_coord>261.0</y_coord>
+      <x_coord>497.0</x_coord>
+      <y_coord>264.0</y_coord>
       <hidden>false</hidden>
       <id>1</id>
       <specialid>2</specialid>
@@ -278,37 +278,37 @@
     <name>ReceptionCamera</name>
     <edgeproperty type="associationName" userDefined="true">
       <name>ReceptionCamera</name>
-      <x_coord>312.60986328125</x_coord>
-      <y_coord>376.73046875</y_coord>
+      <x_coord>308.60986328125</x_coord>
+      <y_coord>377.23046875</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="target" type="rolename" userDefined="false">
       <name>camera</name>
-      <x_coord>274.0</x_coord>
-      <y_coord>393.0</y_coord>
+      <x_coord>273.0</x_coord>
+      <y_coord>394.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="target" type="multiplicity" userDefined="true">
       <name>1</name>
-      <x_coord>271.7568359375</x_coord>
-      <y_coord>375.0</y_coord>
+      <x_coord>270.7568359375</x_coord>
+      <y_coord>376.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="source" type="rolename" userDefined="false">
       <name>vehiculeController</name>
-      <x_coord>355.81591796875</x_coord>
+      <x_coord>361.328125</x_coord>
       <y_coord>448.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="source" type="multiplicity" userDefined="true">
       <name>1</name>
-      <x_coord>466.0</x_coord>
+      <x_coord>459.0</x_coord>
       <y_coord>458.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty type="WayPoint" userDefined="false">
       <name>0</name>
-      <x_coord>464.0</x_coord>
+      <x_coord>457.0</x_coord>
       <y_coord>469.0</y_coord>
       <hidden>false</hidden>
       <id>0</id>
@@ -316,8 +316,8 @@
     </edgeproperty>
     <edgeproperty type="WayPoint" userDefined="false">
       <name>1</name>
-      <x_coord>272.0</x_coord>
-      <y_coord>367.0</y_coord>
+      <x_coord>271.0</x_coord>
+      <y_coord>368.0</y_coord>
       <hidden>false</hidden>
       <id>1</id>
       <specialid>2</specialid>
@@ -325,51 +325,51 @@
     <hidden>false</hidden>
   </edge>
   <edge type="BinaryEdge">
-    <source>PlatoonVehicule</source>
-    <target>Camera</target>
+    <source>Camera</source>
+    <target>PlatoonVehicule</target>
     <name>TraquageCamera</name>
     <edgeproperty type="associationName" userDefined="true">
       <name>TraquageCamera</name>
-      <x_coord>276.645263671875</x_coord>
-      <y_coord>281.6015625</y_coord>
+      <x_coord>273.645263671875</x_coord>
+      <y_coord>282.1015625</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="target" type="rolename" userDefined="false">
-      <name>cTraqueur</name>
-      <x_coord>275.0</x_coord>
-      <y_coord>324.0</y_coord>
+      <name>cibleCamera</name>
+      <x_coord>352.78125</x_coord>
+      <y_coord>303.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="target" type="multiplicity" userDefined="true">
-      <name>1</name>
-      <x_coord>264.7568359375</x_coord>
-      <y_coord>331.0</y_coord>
+      <name>0..1</name>
+      <x_coord>412.7568359375</x_coord>
+      <y_coord>270.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="source" type="rolename" userDefined="false">
-      <name>cibleCamera</name>
-      <x_coord>350.7900390625</x_coord>
-      <y_coord>301.0</y_coord>
+      <name>camera</name>
+      <x_coord>274.0</x_coord>
+      <y_coord>324.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="source" type="multiplicity" userDefined="true">
-      <name>*</name>
-      <x_coord>430.0</x_coord>
-      <y_coord>267.0</y_coord>
+      <name>0..1</name>
+      <x_coord>266.0</x_coord>
+      <y_coord>331.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty type="WayPoint" userDefined="false">
       <name>0</name>
-      <x_coord>426.0</x_coord>
-      <y_coord>261.0</y_coord>
+      <x_coord>272.0</x_coord>
+      <y_coord>345.0</y_coord>
       <hidden>false</hidden>
       <id>0</id>
       <specialid>1</specialid>
     </edgeproperty>
     <edgeproperty type="WayPoint" userDefined="false">
       <name>1</name>
-      <x_coord>273.0</x_coord>
-      <y_coord>345.0</y_coord>
+      <x_coord>421.0</x_coord>
+      <y_coord>262.0</y_coord>
       <hidden>false</hidden>
       <id>1</id>
       <specialid>2</specialid>
@@ -382,45 +382,45 @@
     <name>Inscription</name>
     <edgeproperty type="associationName" userDefined="true">
       <name>Inscription</name>
-      <x_coord>224.096435546875</x_coord>
-      <y_coord>143.92919921875</y_coord>
+      <x_coord>225.596435546875</x_coord>
+      <y_coord>144.42919921875</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="target" type="rolename" userDefined="false">
-      <name>conducteur</name>
-      <x_coord>151.0</x_coord>
-      <y_coord>192.0</y_coord>
+      <name>inscrits</name>
+      <x_coord>155.0</x_coord>
+      <y_coord>184.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="target" type="multiplicity" userDefined="true">
       <name>*</name>
-      <x_coord>147.453125</x_coord>
+      <x_coord>151.453125</x_coord>
       <y_coord>208.5</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="source" type="rolename" userDefined="false">
       <name>system</name>
-      <x_coord>250.5673828125</x_coord>
-      <y_coord>94.0</y_coord>
+      <x_coord>250.890625</x_coord>
+      <y_coord>95.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="source" type="multiplicity" userDefined="true">
-      <name>1</name>
-      <x_coord>276.0</x_coord>
-      <y_coord>70.5</y_coord>
+      <name>0..1</name>
+      <x_coord>275.0</x_coord>
+      <y_coord>71.5</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty type="WayPoint" userDefined="false">
       <name>0</name>
-      <x_coord>297.0</x_coord>
-      <y_coord>68.0</y_coord>
+      <x_coord>296.0</x_coord>
+      <y_coord>69.0</y_coord>
       <hidden>false</hidden>
       <id>0</id>
       <specialid>1</specialid>
     </edgeproperty>
     <edgeproperty type="WayPoint" userDefined="false">
       <name>1</name>
-      <x_coord>149.0</x_coord>
+      <x_coord>153.0</x_coord>
       <y_coord>220.0</y_coord>
       <hidden>false</hidden>
       <id>1</id>
@@ -434,45 +434,45 @@
     <name>ControllePar</name>
     <edgeproperty type="associationName" userDefined="true">
       <name>ControllePar</name>
-      <x_coord>411.138916015625</x_coord>
-      <y_coord>341.3203125</y_coord>
+      <x_coord>405.138916015625</x_coord>
+      <y_coord>342.8203125</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="target" type="rolename" userDefined="false">
-      <name>vehiculeController</name>
-      <x_coord>376.81591796875</x_coord>
+      <name>vc</name>
+      <x_coord>457.75</x_coord>
       <y_coord>448.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="target" type="multiplicity" userDefined="true">
       <name>1</name>
-      <x_coord>487.0</x_coord>
+      <x_coord>481.0</x_coord>
       <y_coord>458.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="source" type="rolename" userDefined="false">
       <name>platoonVehicule</name>
-      <x_coord>475.0</x_coord>
-      <y_coord>301.0</y_coord>
+      <x_coord>469.0</x_coord>
+      <y_coord>305.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="source" type="multiplicity" userDefined="true">
       <name>1</name>
-      <x_coord>464.7568359375</x_coord>
-      <y_coord>267.0</y_coord>
+      <x_coord>470.7568359375</x_coord>
+      <y_coord>273.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty type="WayPoint" userDefined="false">
       <name>0</name>
-      <x_coord>473.0</x_coord>
-      <y_coord>261.0</y_coord>
+      <x_coord>467.0</x_coord>
+      <y_coord>264.0</y_coord>
       <hidden>false</hidden>
       <id>0</id>
       <specialid>1</specialid>
     </edgeproperty>
     <edgeproperty type="WayPoint" userDefined="false">
       <name>1</name>
-      <x_coord>485.0</x_coord>
+      <x_coord>479.0</x_coord>
       <y_coord>469.0</y_coord>
       <hidden>false</hidden>
       <id>1</id>
@@ -486,37 +486,37 @@
     <name>ReceptionRadar</name>
     <edgeproperty type="associationName" userDefined="true">
       <name>ReceptionRadar</name>
-      <x_coord>644.87255859375</x_coord>
-      <y_coord>419.8974609375</y_coord>
+      <x_coord>637.37255859375</x_coord>
+      <y_coord>426.8974609375</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="target" type="rolename" userDefined="false">
       <name>radar</name>
-      <x_coord>752.77734375</x_coord>
-      <y_coord>388.0</y_coord>
+      <x_coord>740.90625</x_coord>
+      <y_coord>402.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
-    <edgeproperty kind="target" type="multiplicity" userDefined="false">
+    <edgeproperty kind="target" type="multiplicity" userDefined="true">
       <name>1</name>
-      <x_coord>792.0</x_coord>
-      <y_coord>388.0</y_coord>
+      <x_coord>773.0</x_coord>
+      <y_coord>387.5</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="source" type="rolename" userDefined="false">
       <name>vehiculeController</name>
-      <x_coord>518.0</x_coord>
+      <x_coord>517.0</x_coord>
       <y_coord>448.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="source" type="multiplicity" userDefined="true">
       <name>1</name>
-      <x_coord>541.7568359375</x_coord>
+      <x_coord>540.7568359375</x_coord>
       <y_coord>461.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty type="WayPoint" userDefined="false">
       <name>0</name>
-      <x_coord>516.0</x_coord>
+      <x_coord>515.0</x_coord>
       <y_coord>469.0</y_coord>
       <hidden>false</hidden>
       <id>0</id>
@@ -524,8 +524,8 @@
     </edgeproperty>
     <edgeproperty type="WayPoint" userDefined="false">
       <name>1</name>
-      <x_coord>790.0</x_coord>
-      <y_coord>362.0</y_coord>
+      <x_coord>776.0</x_coord>
+      <y_coord>376.0</y_coord>
       <hidden>false</hidden>
       <id>1</id>
       <specialid>2</specialid>
@@ -538,38 +538,38 @@
     <name>Gestion</name>
     <edgeproperty type="associationName" userDefined="false">
       <name>Gestion</name>
-      <x_coord>395.365478515625</x_coord>
-      <y_coord>44.6533203125</y_coord>
+      <x_coord>396.109375</x_coord>
+      <y_coord>45.84375</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="target" type="rolename" userDefined="false">
-      <name>platoon</name>
-      <x_coord>450.23046875</x_coord>
-      <y_coord>36.0</y_coord>
+      <name>pelotons</name>
+      <x_coord>449.640625</x_coord>
+      <y_coord>37.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="target" type="multiplicity" userDefined="false">
       <name>*</name>
       <x_coord>501.0</x_coord>
-      <y_coord>36.0</y_coord>
+      <y_coord>36.5</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="source" type="rolename" userDefined="false">
-      <name>system</name>
-      <x_coord>333.0</x_coord>
-      <y_coord>36.0</y_coord>
+      <name>gestionnaire</name>
+      <x_coord>331.0</x_coord>
+      <y_coord>37.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="source" type="multiplicity" userDefined="true">
       <name>1</name>
-      <x_coord>341.109375</x_coord>
-      <y_coord>43.5</y_coord>
+      <x_coord>339.109375</x_coord>
+      <y_coord>44.5</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty type="WayPoint" userDefined="false">
       <name>0</name>
-      <x_coord>331.0</x_coord>
-      <y_coord>57.0</y_coord>
+      <x_coord>329.0</x_coord>
+      <y_coord>58.0</y_coord>
       <hidden>false</hidden>
       <id>0</id>
       <specialid>1</specialid>
@@ -577,85 +577,9 @@
     <edgeproperty type="WayPoint" userDefined="false">
       <name>1</name>
       <x_coord>499.0</x_coord>
-      <y_coord>57.0</y_coord>
+      <y_coord>58.0</y_coord>
       <hidden>false</hidden>
       <id>1</id>
-      <specialid>2</specialid>
-    </edgeproperty>
-    <hidden>false</hidden>
-  </edge>
-  <edge type="BinaryEdge">
-    <source>PlatoonVehicule</source>
-    <target>PlatoonVehicule</target>
-    <name>VehiculeOrder</name>
-    <edgeproperty type="associationName" userDefined="true">
-      <name>VehiculeOrder</name>
-      <x_coord>501.80566327396855</x_coord>
-      <y_coord>181.895885679409</y_coord>
-      <hidden>false</hidden>
-    </edgeproperty>
-    <edgeproperty kind="target" type="rolename" userDefined="false">
-      <name>traqueur</name>
-      <x_coord>499.34936444584355</x_coord>
-      <y_coord>251.075573179409</y_coord>
-      <hidden>false</hidden>
-    </edgeproperty>
-    <edgeproperty kind="target" type="multiplicity" userDefined="false">
-      <name>0..1</name>
-      <x_coord>469.15014569584355</x_coord>
-      <y_coord>251.075573179409</y_coord>
-      <hidden>false</hidden>
-    </edgeproperty>
-    <edgeproperty kind="source" type="rolename" userDefined="false">
-      <name>cible</name>
-      <x_coord>488.83520428959355</x_coord>
-      <y_coord>188.575573179409</y_coord>
-      <hidden>false</hidden>
-    </edgeproperty>
-    <edgeproperty kind="source" type="multiplicity" userDefined="true">
-      <name>0..1</name>
-      <x_coord>527.5993644458435</x_coord>
-      <y_coord>226.575573179409</y_coord>
-      <hidden>false</hidden>
-    </edgeproperty>
-    <edgeproperty type="WayPoint" userDefined="false">
-      <name>0</name>
-      <x_coord>522.5993644458435</x_coord>
-      <y_coord>223.575573179409</y_coord>
-      <hidden>false</hidden>
-      <id>0</id>
-      <specialid>1</specialid>
-    </edgeproperty>
-    <edgeproperty type="WayPoint" userDefined="false">
-      <name>1</name>
-      <x_coord>574.3493644458435</x_coord>
-      <y_coord>223.575573179409</y_coord>
-      <hidden>false</hidden>
-      <id>1</id>
-      <specialid>3</specialid>
-    </edgeproperty>
-    <edgeproperty type="WayPoint" userDefined="false">
-      <name>2</name>
-      <x_coord>574.3493644458435</x_coord>
-      <y_coord>193.575573179409</y_coord>
-      <hidden>false</hidden>
-      <id>2</id>
-      <specialid>4</specialid>
-    </edgeproperty>
-    <edgeproperty type="WayPoint" userDefined="false">
-      <name>3</name>
-      <x_coord>497.34936444584355</x_coord>
-      <y_coord>193.575573179409</y_coord>
-      <hidden>false</hidden>
-      <id>3</id>
-      <specialid>5</specialid>
-    </edgeproperty>
-    <edgeproperty type="WayPoint" userDefined="false">
-      <name>4</name>
-      <x_coord>497.34936444584355</x_coord>
-      <y_coord>211.075573179409</y_coord>
-      <hidden>false</hidden>
-      <id>4</id>
       <specialid>2</specialid>
     </edgeproperty>
     <hidden>false</hidden>
@@ -666,46 +590,46 @@
     <name>Conducteur</name>
     <edgeproperty type="associationName" userDefined="false">
       <name>Conducteur</name>
-      <x_coord>264.638916015625</x_coord>
-      <y_coord>224.3203125</y_coord>
+      <x_coord>264.8671875</x_coord>
+      <y_coord>229.34375</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="target" type="rolename" userDefined="false">
       <name>conducteur</name>
-      <x_coord>173.0</x_coord>
-      <y_coord>271.0</y_coord>
+      <x_coord>166.0</x_coord>
+      <y_coord>209.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="target" type="multiplicity" userDefined="true">
       <name>0..1</name>
-      <x_coord>177.359375</x_coord>
-      <y_coord>241.5</y_coord>
+      <x_coord>170.359375</x_coord>
+      <y_coord>248.5</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="source" type="rolename" userDefined="false">
-      <name>platoonVehicule</name>
-      <x_coord>326.69775390625</x_coord>
-      <y_coord>276.0</y_coord>
+      <name>voiture</name>
+      <x_coord>378.484375</x_coord>
+      <y_coord>202.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="source" type="multiplicity" userDefined="true">
       <name>1</name>
-      <x_coord>411.0</x_coord>
-      <y_coord>239.0</y_coord>
+      <x_coord>407.0</x_coord>
+      <y_coord>226.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty type="WayPoint" userDefined="false">
       <name>0</name>
       <x_coord>421.0</x_coord>
-      <y_coord>236.0</y_coord>
+      <y_coord>238.0</y_coord>
       <hidden>false</hidden>
       <id>0</id>
       <specialid>1</specialid>
     </edgeproperty>
     <edgeproperty type="WayPoint" userDefined="false">
       <name>1</name>
-      <x_coord>171.0</x_coord>
-      <y_coord>238.0</y_coord>
+      <x_coord>164.0</x_coord>
+      <y_coord>245.0</y_coord>
       <hidden>false</hidden>
       <id>1</id>
       <specialid>2</specialid>
@@ -718,45 +642,45 @@
     <name>Enregistrement</name>
     <edgeproperty type="associationName" userDefined="true">
       <name>Enregistrement</name>
-      <x_coord>366.170654296875</x_coord>
-      <y_coord>108.30029296875</y_coord>
+      <x_coord>362.670654296875</x_coord>
+      <y_coord>108.80029296875</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="target" type="rolename" userDefined="false">
-      <name>platoonVehicule</name>
-      <x_coord>353.69775390625</x_coord>
-      <y_coord>176.0</y_coord>
+      <name>enregistres</name>
+      <x_coord>378.328125</x_coord>
+      <y_coord>175.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="target" type="multiplicity" userDefined="true">
       <name>*</name>
-      <x_coord>445.0</x_coord>
-      <y_coord>194.0</y_coord>
+      <x_coord>435.0</x_coord>
+      <y_coord>196.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="source" type="rolename" userDefined="false">
       <name>system</name>
-      <x_coord>319.0</x_coord>
-      <y_coord>94.0</y_coord>
+      <x_coord>318.0</x_coord>
+      <y_coord>95.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="source" type="multiplicity" userDefined="true">
-      <name>1</name>
-      <x_coord>316.109375</x_coord>
-      <y_coord>75.5</y_coord>
+      <name>0..1</name>
+      <x_coord>315.109375</x_coord>
+      <y_coord>76.5</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty type="WayPoint" userDefined="false">
       <name>0</name>
-      <x_coord>317.0</x_coord>
-      <y_coord>68.0</y_coord>
+      <x_coord>316.0</x_coord>
+      <y_coord>69.0</y_coord>
       <hidden>false</hidden>
       <id>0</id>
       <specialid>1</specialid>
     </edgeproperty>
     <edgeproperty type="WayPoint" userDefined="false">
       <name>1</name>
-      <x_coord>448.0</x_coord>
+      <x_coord>442.0</x_coord>
       <y_coord>211.0</y_coord>
       <hidden>false</hidden>
       <id>1</id>
@@ -765,51 +689,51 @@
     <hidden>false</hidden>
   </edge>
   <edge type="BinaryEdge">
-    <source>PlatoonVehicule</source>
-    <target>Radar</target>
+    <source>Radar</source>
+    <target>PlatoonVehicule</target>
     <name>TraquageRadar</name>
     <edgeproperty type="associationName" userDefined="true">
       <name>TraquageRadar</name>
-      <x_coord>627.407958984375</x_coord>
-      <y_coord>273.2685546875</y_coord>
+      <x_coord>614.407958984375</x_coord>
+      <y_coord>281.2685546875</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="target" type="rolename" userDefined="false">
-      <name>rTraqueur</name>
-      <x_coord>726.77734375</x_coord>
-      <y_coord>326.0</y_coord>
+      <name>cibleRadar</name>
+      <x_coord>512.0</x_coord>
+      <y_coord>296.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
-    <edgeproperty kind="target" type="multiplicity" userDefined="false">
-      <name>1</name>
-      <x_coord>792.0</x_coord>
-      <y_coord>326.0</y_coord>
+    <edgeproperty kind="target" type="multiplicity" userDefined="true">
+      <name>0..1</name>
+      <x_coord>523.359375</x_coord>
+      <y_coord>244.5</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="source" type="rolename" userDefined="false">
-      <name>cibleRadar</name>
-      <x_coord>524.0</x_coord>
-      <y_coord>293.0</y_coord>
+      <name>radar</name>
+      <x_coord>740.90625</x_coord>
+      <y_coord>340.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty kind="source" type="multiplicity" userDefined="true">
-      <name>*</name>
-      <x_coord>525.88037109375</x_coord>
-      <y_coord>248.0</y_coord>
+      <name>0..1</name>
+      <x_coord>769.88037109375</x_coord>
+      <y_coord>344.0</y_coord>
       <hidden>false</hidden>
     </edgeproperty>
     <edgeproperty type="WayPoint" userDefined="false">
       <name>0</name>
-      <x_coord>522.0</x_coord>
-      <y_coord>253.0</y_coord>
+      <x_coord>776.0</x_coord>
+      <y_coord>361.0</y_coord>
       <hidden>false</hidden>
       <id>0</id>
       <specialid>1</specialid>
     </edgeproperty>
     <edgeproperty type="WayPoint" userDefined="false">
       <name>1</name>
-      <x_coord>790.0</x_coord>
-      <y_coord>347.0</y_coord>
+      <x_coord>510.0</x_coord>
+      <y_coord>255.0</y_coord>
       <hidden>false</hidden>
       <id>1</id>
       <specialid>2</specialid>

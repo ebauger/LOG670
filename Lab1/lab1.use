@@ -220,7 +220,7 @@ context Platoon
 context Platoon
     inv comRadio : self.voitures->forAll(v| v.vc.radio.receveurs = self.voitures->excluding(v))
 
---3. Le leader d’un peloton doit être inscrits dans le système.
+--3. La voiture du leader d’un peloton doit être enregistrées dans le système.
 context System
     inv voituresEnr : self.enregistres->includesAll(self.pelotons.voitures->select(position=1))
 
