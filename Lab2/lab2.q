@@ -3,4 +3,4 @@
 /*
 
 */
-A[] not deadlock
+modeA==true --> modeA==false
