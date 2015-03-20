@@ -4,3 +4,18 @@
 
 */
 //NO_QUERY
+
+/*
+
+*/
+E<> v1.SurLePont and v2.SurLePont
+
+/*
+
+*/
+modeA --> not modeA
+
+/*
+
+*/
+A[] not deadlock
