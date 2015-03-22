@@ -9,7 +9,7 @@ int[0,N] lenA =0;
 int[0,N] lenB=0;
 int[0,N] lenP=0;
 
-typedef int[0,N-1] id_v; 
+typedef int[0,N-1] id_v;
 
 chan DemandeA[N], Entree, Sortie, DemandeB[N], PontLibre, Permission[N];
 urgent chan DemandeAP[N], DemandeBP[N], AutorisationPont, PontVide, next[N], ResetTimer, Force;</declaration><template><name>VAX</name><parameter>const id_v id, bool directionA, bool prioritaire</parameter><declaration>clock tempsSurPont;
