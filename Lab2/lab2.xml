@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_1.dtd'><nta><declaration>// Place global declarations here.
-const int N = 40;
+const int N = 13;
 const int tempsMaxPont = 10;
 const int tempsMinPont = 5;
 int[0,3] prioritaire = 0;
 bool modeA = true;
 bool modeTimer=true;
-int[0, N] lenA =0;
+int[0,N] lenA =0;
 int[0,N] lenB=0;
+int[0,N] lenP=0;
 
 typedef int[0,N-1] id_v; 
 
@@ -41,18 +42,42 @@ tempsAttenteDemande:=0,
 modeA:=!modeA</label></transition><transition><source ref="id8"/><target ref="id6"/><label kind="select" x="-344" y="264">id : id_v</label><label kind="guard" x="-424" y="312">nbVoiture&lt;10 &amp;&amp; (prioritaire==0 ||
  ((prioritaire == 2) == modeA))
 &amp;&amp; modeTimer</label><label kind="synchronisation" x="-344" y="280">next[id]?</label><label kind="assignment" x="-408" y="368">idVoiture:=id,
-nbVoiture:=nbVoiture+1</label></transition><transition><source ref="id8"/><target ref="id7"/><label kind="guard" x="-288" y="-104">prioritaire &gt; 0 &amp;&amp; ((prioritaire == 2) != modeA)</label><label kind="synchronisation" x="-168" y="-120">Force!</label><nail x="-112" y="-88"/><nail x="176" y="-88"/></transition><transition><source ref="id8"/><target ref="id7"/><label kind="guard" x="112" y="232">tempsAttenteDemande &gt;= tempsDemande</label><nail x="368" y="232"/><nail x="272" y="-72"/></transition><transition><source ref="id8"/><target ref="id7"/><label kind="guard" x="64" y="136">!modeTimer || nbVoiture == 10</label><label kind="synchronisation" x="112" y="120">Force!</label><nail x="232" y="80"/></transition><transition><source ref="id9"/><target ref="id8"/><label kind="synchronisation" x="-352" y="120">AutorisationPont?</label><label kind="assignment" x="-368" y="136">tempsAttenteDemande:=0</label></transition></template><template><name>P</name><declaration>int nbVoiture =0;
-int capacite = 5;</declaration><location id="id10" x="-96" y="96"><name x="-106" y="66">Pont</name><label kind="invariant" x="-136" y="48">nbVoiture&gt;=0</label></location><init ref="id10"/><transition><source ref="id10"/><target ref="id10"/><label kind="guard" x="-408" y="80">nbVoiture&lt;capacite</label><label kind="synchronisation" x="-400" y="96">AutorisationPont!</label><nail x="-344" y="144"/><nail x="-352" y="8"/></transition><transition><source ref="id10"/><target ref="id10"/><label kind="guard" x="-288" y="200">nbVoiture == 0</label><label kind="synchronisation" x="-296" y="304">PontVide!</label><nail x="-208" y="320"/><nail x="-288" y="256"/></transition><transition><source ref="id10"/><target ref="id10"/><label kind="synchronisation" x="88" y="72">Sortie?</label><label kind="assignment" x="64" y="40">nbVoiture:=nbVoiture-1</label><nail x="56" y="16"/><nail x="64" y="104"/></transition><transition><source ref="id10"/><target ref="id10"/><label kind="synchronisation" x="-112" y="-64">Entree?</label><label kind="assignment" x="-160" y="-80">nbVoiture:=nbVoiture+1</label><nail x="-160" y="-40"/><nail x="32" y="-32"/></transition></template><template><name>QueueManager</name><declaration>int listA[N+1];
+nbVoiture:=nbVoiture+1</label></transition><transition><source ref="id8"/><target ref="id7"/><label kind="guard" x="-288" y="-104">prioritaire &gt; 0 &amp;&amp; ((prioritaire == 2) != modeA)</label><label kind="synchronisation" x="-168" y="-120">Force!</label><nail x="-112" y="-88"/><nail x="176" y="-88"/></transition><transition><source ref="id8"/><target ref="id7"/><label kind="guard" x="112" y="232">tempsAttenteDemande &gt;= tempsDemande</label><nail x="368" y="232"/><nail x="272" y="-72"/></transition><transition><source ref="id8"/><target ref="id7"/><label kind="guard" x="64" y="136">!modeTimer || nbVoiture == 6</label><label kind="synchronisation" x="112" y="120">Force!</label><nail x="232" y="80"/></transition><transition><source ref="id9"/><target ref="id8"/><label kind="synchronisation" x="-352" y="120">AutorisationPont?</label><label kind="assignment" x="-368" y="136">tempsAttenteDemande:=0</label></transition></template><template><name>P</name><declaration>int nbVoiture =0;
+int capacite = 3;</declaration><location id="id10" x="-96" y="96"><name x="-106" y="66">Pont</name><label kind="invariant" x="-136" y="48">nbVoiture&gt;=0</label></location><init ref="id10"/><transition><source ref="id10"/><target ref="id10"/><label kind="guard" x="-408" y="80">nbVoiture&lt;capacite</label><label kind="synchronisation" x="-400" y="96">AutorisationPont!</label><nail x="-344" y="144"/><nail x="-352" y="8"/></transition><transition><source ref="id10"/><target ref="id10"/><label kind="guard" x="-288" y="200">nbVoiture == 0</label><label kind="synchronisation" x="-296" y="304">PontVide!</label><nail x="-208" y="320"/><nail x="-288" y="256"/></transition><transition><source ref="id10"/><target ref="id10"/><label kind="synchronisation" x="88" y="72">Sortie?</label><label kind="assignment" x="64" y="40">nbVoiture:=nbVoiture-1</label><nail x="56" y="16"/><nail x="64" y="104"/></transition><transition><source ref="id10"/><target ref="id10"/><label kind="synchronisation" x="-112" y="-64">Entree?</label><label kind="assignment" x="-160" y="-80">nbVoiture:=nbVoiture+1</label><nail x="-160" y="-40"/><nail x="32" y="-32"/></transition></template><template><name>QueueManager</name><declaration>int listA[N+1];
 int listB[N+1];
+int listPid[N+1];
+int listP[N+1];
 
-void enqueue(int id, bool isModeA){
-  if(isModeA)
-	listA[lenA++] = id;
-  else
-       	listB[lenB++] = id;
+void enqueue(int id, bool isModeA, bool isPrioritaire){
+  if(isModeA){
+	if(isPrioritaire){
+		listPid[lenP] = id;
+		listP[lenP] = 2;
+		if(lenP==0)
+			prioritaire=2;
+		lenP++;
+	}
+	else{
+		listA[lenA++] = id;
+	}
+  }
+  else{
+	if(isPrioritaire){
+		listPid[lenP] = id;
+		listP[lenP] = 1;
+		if(lenP==0)
+			prioritaire=1;
+		lenP++;
+	}
+	else{
+       		listB[lenB++] = id;
+	}
+  }
 }
 
 int front(){
+  if(lenP&gt;0)
+	return listPid[0];
   if(modeA)
 	return listA[0];
   else
@@ -60,6 +85,9 @@ int front(){
 }
 
 int getLength(){
+  
+  if(lenP&gt;0)
+	return lenP;
   if(modeA)
 	return lenA;
   else
@@ -68,6 +96,19 @@ int getLength(){
 
 void dequeue(){
  int i = 0;
+
+ if(lenP&gt;0){
+	lenP-=1;
+	while (i &lt; lenP)
+ 	{
+		listP[i] = listP[i + 1];
+ 		listPid[i] = listPid[i + 1];
+ 		i++;
+ 	}
+ 	listPid[i] = 0;
+	prioritaire = listP[0];
+  }
+ else{
  if(modeA){
 	lenA-=1;
 	while (i &lt; lenA)
@@ -86,6 +127,7 @@ void dequeue(){
  	}
  	listB[i] = 0;
   }
+}
 }
 
 void insertFirst(int id, bool isModeA){
@@ -110,38 +152,24 @@ void insertFirst(int id, bool isModeA){
  	}
  	listB[0] = id;
   }
-}</declaration><location id="id11" x="-176" y="192"></location><location id="id12" x="-192" y="-136"><committed/></location><init ref="id11"/><transition><source ref="id11"/><target ref="id11"/><label kind="synchronisation" x="-96" y="272">Force?</label><nail x="-176" y="296"/><nail x="-104" y="296"/></transition><transition><source ref="id12"/><target ref="id11"/><label kind="assignment" x="-152" y="-112">dequeue(),
-prioritaire:=0</label><nail x="-152" y="-80"/></transition><transition><source ref="id11"/><target ref="id11"/><label kind="select" x="24" y="72">id : id_v</label><label kind="synchronisation" x="0" y="88">DemandeBP[id]?</label><label kind="assignment" x="8" y="104">insertFirst(id,false),
-prioritaire:= 1</label><nail x="48" y="104"/><nail x="104" y="184"/></transition><transition><source ref="id11"/><target ref="id11"/><label kind="select" x="32" y="-40">id : id_v</label><label kind="synchronisation" x="8" y="-24">DemandeB[id]?</label><label kind="assignment" x="8" y="-8">enqueue(id,false)</label><nail x="-48" y="-56"/><nail x="24" y="-16"/></transition><transition><source ref="id11"/><target ref="id11"/><label kind="select" x="-592" y="192">id : id_v</label><label kind="synchronisation" x="-632" y="216">DemandeAP[id]?</label><label kind="assignment" x="-632" y="248">insertFirst(id,true),
-prioritaire:= 2</label><nail x="-464" y="280"/><nail x="-536" y="184"/></transition><transition><source ref="id11"/><target ref="id11"/><label kind="select" x="-544" y="-104">id : id_v</label><label kind="synchronisation" x="-560" y="-88">DemandeA[id]?</label><label kind="assignment" x="-568" y="-72">enqueue(id,true)</label><nail x="-480" y="-72"/><nail x="-416" y="-120"/></transition><transition><source ref="id11"/><target ref="id12"/><label kind="select" x="-304" y="-112">e : id_v</label><label kind="guard" x="-328" y="-88">getLength() &gt; 0 &amp;&amp;
+}</declaration><location id="id11" x="-176" y="192"></location><location id="id12" x="-192" y="-136"><committed/></location><init ref="id11"/><transition><source ref="id11"/><target ref="id11"/><label kind="synchronisation" x="-96" y="272">Force?</label><nail x="-176" y="296"/><nail x="-104" y="296"/></transition><transition><source ref="id12"/><target ref="id11"/><label kind="assignment" x="-152" y="-88">dequeue()</label><nail x="-152" y="-80"/></transition><transition><source ref="id11"/><target ref="id11"/><label kind="select" x="24" y="72">id : id_v</label><label kind="synchronisation" x="0" y="88">DemandeBP[id]?</label><label kind="assignment" x="-16" y="112">enqueue(id,false,true)</label><nail x="48" y="104"/><nail x="104" y="184"/></transition><transition><source ref="id11"/><target ref="id11"/><label kind="select" x="32" y="-40">id : id_v</label><label kind="synchronisation" x="8" y="-24">DemandeB[id]?</label><label kind="assignment" x="8" y="-8">enqueue(id,false,true)</label><nail x="-48" y="-56"/><nail x="24" y="-16"/></transition><transition><source ref="id11"/><target ref="id11"/><label kind="select" x="-592" y="192">id : id_v</label><label kind="synchronisation" x="-632" y="216">DemandeAP[id]?</label><label kind="assignment" x="-632" y="248">enqueue(id,true,true)</label><nail x="-464" y="280"/><nail x="-536" y="184"/></transition><transition><source ref="id11"/><target ref="id11"/><label kind="select" x="-544" y="-104">id : id_v</label><label kind="synchronisation" x="-560" y="-88">DemandeA[id]?</label><label kind="assignment" x="-568" y="-72">enqueue(id,true,false)</label><nail x="-480" y="-72"/><nail x="-416" y="-120"/></transition><transition><source ref="id11"/><target ref="id12"/><label kind="select" x="-304" y="-112">e : id_v</label><label kind="guard" x="-328" y="-88">getLength() &gt; 0 &amp;&amp;
 e == front()</label><label kind="synchronisation" x="-304" y="-56">next[e]!</label><nail x="-232" y="-24"/></transition></template><template><name>ModeTimer</name><declaration>clock timer;
 const int tempsMode = 200;</declaration><location id="id13" x="-104" y="168"></location><location id="id14" x="-248" y="8"><label kind="invariant" x="-296" y="-48">timer&lt;=tempsMode</label></location><init ref="id14"/><transition><source ref="id14"/><target ref="id14"/><label kind="synchronisation" x="-392" y="-184">ResetTimer?</label><label kind="assignment" x="-416" y="-168">timer:=0,modeTimer:=true</label><nail x="-464" y="-24"/><nail x="-368" y="-192"/><nail x="-176" y="-168"/></transition><transition><source ref="id13"/><target ref="id14"/><label kind="synchronisation" x="-344" y="104">ResetTimer?</label><label kind="assignment" x="-328" y="120">timer:=0,modeTimer:=true</label><nail x="-272" y="160"/></transition><transition><source ref="id14"/><target ref="id13"/><label kind="guard" x="-72" y="16">timer&gt;=tempsMode</label><label kind="assignment" x="-104" y="32">modeTimer:=false</label><nail x="-88" y="8"/></transition></template><system>// Place template instantiations here.
 v1= VAX(1,true,false);
-v2= VAX(2,true,false);
-v3= VAX(3,true,false);
-v4= VAX(4,true,false);
-v5= VAX(5,true,false);
-v6= VAX(6,true,false);
-v7= VAX(7,true,false);
+v4= VAX(4,true,true);
+v5= VAX(5,true,true);
+v6= VAX(6,false,true);
+v7= VAX(7,false,true);
 v8= VAX(8,true,false);
 v9= VAX(9,true,false);
 v10= VAX(10,true,false);
 v11= VAX(11,true,false);
 v12= VAX(12,true,false);
-v13= VAX(13,true,false);
-v14= VAX(14,true,false);
-v15= VAX(15,true,false);
-v16= VAX(16,true,false);
-v17= VAX(17,true,false);
-v18= VAX(18,true,false);
-v19= VAX(19,true,false);
-v20= VAX(20,true,false);
-v21= VAX(21,true,false);
-v22= VAX(21,false,false);
+v22= VAX(0,false,false);
 
 c = CTRLP();
 qm = QueueManager();
 mt = ModeTimer();
 p = P();
 // List one or more processes to be composed into a system.
-system v1,v2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13,v14,v15,v16,v17,v18,v19,v20,v21,v22, c, p, qm, mt;</system></nta>
+system v1,v4,v7,v22, c, p, qm, mt;</system></nta>
