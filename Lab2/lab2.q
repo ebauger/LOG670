@@ -8,6 +8,16 @@
 /*
 
 */
+A[] (v1.b imply v1.tempsDemandeSortie<=520)
+
+/*
+
+*/
+A[] (v1.SurLePont imply not v4.SurLePont)
+
+/*
+
+*/
 E<> v1.SurLePont and v2.SurLePont
 
 /*
