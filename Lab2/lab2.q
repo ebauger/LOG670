@@ -8,12 +8,12 @@
 /*
 
 */
-A[] (v1.b imply v1.tempsDemandeSortie<=520)
+A[] (v1.SurLePont imply v1.tempsDemandeSortie<=300)
 
 /*
 
 */
-A[] (v1.SurLePont imply not v4.SurLePont)
+A[] (vBP.SurLePont imply not (vA.SurLePont or vAP.SurLePont))
 
 /*
 
